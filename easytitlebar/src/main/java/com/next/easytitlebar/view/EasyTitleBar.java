@@ -29,6 +29,10 @@ public class EasyTitleBar extends RelativeLayout {
 
     //标题字体大小
     private float titleTextSize =  SmallUtil.dip2px(getContext(),17);
+    //标题字体颜色
+    private int titleColor = 0x333333;
+    //标题字排列风格
+    private String titleStyle = "center";
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
@@ -66,6 +70,19 @@ public class EasyTitleBar extends RelativeLayout {
             }
 
             titleTextSize = ta.getDimension(R.styleable.EasyTitleBar_title_size, SmallUtil.dip2px(context,17));
+            title_tv.setTextSize(titleTextSize);
+            titleColor = ta.getColor(R.styleable.EasyTitleBar_title_color, 0x333333);
+            title_tv.setTextColor(titleColor);
+            titleStyle = ta.getString(R.styleable.EasyTitleBar_title_style);
+            LayoutParams titleParams = (LayoutParams) title_tv.getLayoutParams();
+            if(titleStyle.equals("center")){
+                titleParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            }else{
+                titleParams.addRule(RelativeLayout.CENTER_VERTICAL);
+            }
+            title_tv.setLayoutParams(titleParams);
+
+
 
             String rightTxt = ta.getString(R.styleable.EasyTitleBar_titlebarRightText);
             if (null != rightTxt) {

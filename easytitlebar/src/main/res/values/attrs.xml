@@ -6,7 +6,14 @@
         <!--标题大小-->
         <attr name="title_size" format="dimension" />
         <!--标题颜色-->
-        <attr name="title_color" format="color" />
+        <attr name="title_color" format="reference" />
+        <!--标题位置-->
+        <attr name="title_style" format="string" />
+        <!--左边第一个图标的有无-->
+        <attr name="left_image_state" format="string" />
+
+
+
         <attr name="titlebarRightText" format="string" />
         <attr name="titlebarLeftState" format="string" />
         <attr name="titlebarLeftImage" format="reference" />
