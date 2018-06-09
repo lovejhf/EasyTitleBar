@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="EasyTitleBar">
+
+        <!--标题栏高度-->
+        <attr name="titlebar_height" format="dimension" />
+        <!--标题栏背景颜色-->
+        <attr name="titlebar_background" format="color" />
+
         <!--标题文字-->
         <attr name="title_text" format="string" />
         <!--标题大小-->
@@ -9,8 +15,19 @@
         <attr name="title_color" format="reference" />
         <!--标题位置-->
         <attr name="title_style" format="string" />
+
+        <!--标题栏分割线的有无-->
+        <attr name="line_state" format="string" />
+        <!--标题栏分割线高度-->
+        <attr name="line_height" format="dimension" />
+        <!--标题栏分割线颜色-->
+        <attr name="line_color" format="color" />
+
+
         <!--左边第一个图标的有无-->
         <attr name="left_image_state" format="string" />
+        <!--左边图标-->
+        <attr name="left_image" format="reference" />
 
 
 
