@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="EasyTitleBar">
-
         <!--标题栏高度-->
         <attr name="titlebar_height" format="dimension" />
         <!--标题栏背景颜色-->

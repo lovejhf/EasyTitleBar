@@ -27,6 +27,7 @@ import com.next.easytitlebar.utils.SmallUtil;
  */
 public class EasyTitleBar extends RelativeLayout {
 
+    private static TitleBarSetting titleBarSetting;
     protected LinearLayout leftLayout;
     protected ImageView left_image;
     //右侧viewgroup
@@ -45,6 +46,8 @@ public class EasyTitleBar extends RelativeLayout {
     //分割线
     private View titleLine;
 
+    //左边的图标（一般为返回箭头）
+    private int backRes = R.drawable.tab_icon_back_black_default;
 
     //标题字体大小
     private float titleTextSize = SmallUtil.sp2px(getContext(), 13);
@@ -72,6 +75,7 @@ public class EasyTitleBar extends RelativeLayout {
 
     private ConstraintSet leftConstraintSet = new ConstraintSet();
     private ConstraintSet centerConstraintSet = new ConstraintSet();
+    private String lineState = "";
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
@@ -102,7 +106,25 @@ public class EasyTitleBar extends RelativeLayout {
         leftConstraintSet.clone(titleLayout);
         centerConstraintSet.clone(titleLayout);
 
+
+        initSetting();
+
         parseStyle(context, attrs);
+    }
+
+    private void initSetting() {
+        if (titleBarSetting == null)
+            return;
+        titleBarBackGround = titleBarSetting.getBackgroud();
+        backRes = titleBarSetting.getBack_icon();
+        titleTextSize = SmallUtil.sp2px(getContext(),titleBarSetting.getTitleSize());
+        titleColor = titleBarSetting.getTitleColor();
+        titleBarHeight = SmallUtil.dip2px(getContext(),titleBarSetting.getTitleBarHeight());
+        if(titleBarSetting.getLineState()==titleBarSetting.LINE_SHOW){
+            lineState = "gone";
+        }else{
+            lineState = "";
+        }
     }
 
     private void parseStyle(Context context, AttributeSet attrs) {
@@ -110,8 +132,8 @@ public class EasyTitleBar extends RelativeLayout {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EasyTitleBar);
 
             //标题栏
-            titleBarHeight = ta.getDimension(R.styleable.EasyTitleBar_titlebar_height, SmallUtil.dip2px(context, 48));
-            titleBarBackGround = ta.getColor(R.styleable.EasyTitleBar_titlebar_background, 0xffffff);
+            titleBarHeight = ta.getDimension(R.styleable.EasyTitleBar_titlebar_height,titleBarHeight);
+            titleBarBackGround = ta.getColor(R.styleable.EasyTitleBar_titlebar_background, titleBarBackGround);
             ConstraintLayout.LayoutParams titleParams = (ConstraintLayout.LayoutParams) title_tv.getLayoutParams();
             titleParams.height = (int) titleBarHeight;
             titleLayout.setBackgroundColor(titleBarBackGround);
@@ -121,9 +143,9 @@ public class EasyTitleBar extends RelativeLayout {
             if (null != title) {
                 title_tv.setText(title);
             }
-            titleTextSize = ta.getDimension(R.styleable.EasyTitleBar_title_size, SmallUtil.sp2px(context, 13));
+            titleTextSize = ta.getDimension(R.styleable.EasyTitleBar_title_size, titleTextSize);
             title_tv.setTextSize(titleTextSize);
-            titleColor = ta.getColor(R.styleable.EasyTitleBar_title_color, Color.parseColor("#333333"));
+            titleColor = ta.getColor(R.styleable.EasyTitleBar_title_color,titleColor);
             title_tv.setTextColor(titleColor);
 
             titleStyle = ta.getString(R.styleable.EasyTitleBar_title_style);
@@ -134,6 +156,11 @@ public class EasyTitleBar extends RelativeLayout {
             }
 
             //分割线
+            String lineState = ta.getString(R.styleable.EasyTitleBar_line_state);
+            if (null != lineState && lineState.equals("gone")) {
+                leftLayout.setVisibility(GONE);
+            }
+
             titleLineHeight = ta.getDimension(R.styleable.EasyTitleBar_line_height, 1);
             titleLineColor = ta.getColor(R.styleable.EasyTitleBar_line_color, Color.parseColor("#cccccc"));
             ConstraintLayout.LayoutParams lineParams = (ConstraintLayout.LayoutParams) titleLine.getLayoutParams();
@@ -146,6 +173,9 @@ public class EasyTitleBar extends RelativeLayout {
             if (null != leftDrawable) {
                 leftLayout.setVisibility(VISIBLE);
                 left_image.setImageDrawable(leftDrawable);
+            }else{
+                leftLayout.setVisibility(VISIBLE);
+                left_image.setImageResource(backRes);
             }
 
             //右侧图标
@@ -260,16 +290,16 @@ public class EasyTitleBar extends RelativeLayout {
     @SuppressLint("NewApi")
     public void setTitleStyle(int style) {
         if (style == TITLE_STYLE_CENTER) {
-            centerConstraintSet.connect(title_tv.getId(),ConstraintSet.LEFT,ConstraintSet.PARENT_ID,ConstraintSet.LEFT,0);
-            centerConstraintSet.connect(title_tv.getId(),ConstraintSet.RIGHT,ConstraintSet.PARENT_ID,ConstraintSet.RIGHT,0);
-            centerConstraintSet.connect(title_tv.getId(),ConstraintSet.TOP,ConstraintSet.PARENT_ID,ConstraintSet.TOP,0);
-            centerConstraintSet.connect(title_tv.getId(),ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID,ConstraintSet.BOTTOM,0);
+            centerConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
+            centerConstraintSet.connect(title_tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
+            centerConstraintSet.connect(title_tv.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+            centerConstraintSet.connect(title_tv.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
             centerConstraintSet.applyTo(titleLayout);
         } else if (style == TITLE_STYLE_LEFT) {
-            leftConstraintSet.connect(title_tv.getId(),ConstraintSet.TOP,ConstraintSet.PARENT_ID,ConstraintSet.TOP,0);
-            leftConstraintSet.connect(title_tv.getId(),ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID,ConstraintSet.BOTTOM,0);
-            leftConstraintSet.connect(title_tv.getId(),ConstraintSet.LEFT,leftLayout.getId(),ConstraintSet.RIGHT,0);
-            leftConstraintSet.setGoneMargin(title_tv.getId(),ConstraintSet.LEFT,dpToPx(100));
+            leftConstraintSet.connect(title_tv.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+            leftConstraintSet.connect(title_tv.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
+            leftConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, leftLayout.getId(), ConstraintSet.RIGHT, 0);
+            leftConstraintSet.setGoneMargin(title_tv.getId(), ConstraintSet.LEFT, dpToPx(100));
             leftConstraintSet.applyTo(titleLayout);
         }
     }
@@ -355,5 +385,10 @@ public class EasyTitleBar extends RelativeLayout {
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static TitleBarSetting init() {
+        titleBarSetting = TitleBarSetting.getInstance();
+        return titleBarSetting;
     }
 }
