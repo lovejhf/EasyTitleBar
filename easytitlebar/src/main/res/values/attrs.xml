@@ -2,31 +2,31 @@
 <resources>
     <declare-styleable name="EasyTitleBar">
         <!--标题栏高度-->
-        <attr name="titlebar_height" format="dimension" />
+        <attr name="Easy_titleBarHeight" format="dimension" />
         <!--标题栏背景颜色-->
-        <attr name="titlebar_background" format="color" />
+        <attr name="Easy_titleBarBackground" format="color" />
 
         <!--标题文字-->
-        <attr name="title_text" format="string" />
+        <attr name="Easy_title" format="string" />
         <!--标题大小-->
-        <attr name="title_size" format="dimension" />
+        <attr name="Easy_titleSize" format="dimension" />
         <!--标题颜色-->
-        <attr name="title_color" format="reference" />
+        <attr name="Easy_titleColor" format="reference" />
         <!--标题位置-->
-        <attr name="title_style" format="string" />
+        <attr name="Easy_titleStyle" format="string" />
 
         <!--标题栏分割线的有无-->
-        <attr name="line_state" format="string" />
+        <attr name="Easy_lineState" format="string" />
         <!--标题栏分割线高度-->
-        <attr name="line_height" format="dimension" />
+        <attr name="Easy_lineHeight" format="dimension" />
         <!--标题栏分割线颜色-->
-        <attr name="line_color" format="color" />
+        <attr name="Easy_lineColor" format="color" />
 
 
         <!--左边第一个图标的有无-->
-        <attr name="left_image_state" format="string" />
+        <attr name="Easy_leftImageState" format="string" />
         <!--左边图标-->
-        <attr name="left_image" format="reference" />
+        <attr name="Easy_leftImage" format="reference" />
 
 
 

@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="#ffffff"
-    android:elevation="3dp"
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/left_layout"
         android:layout_width="50dp"
         android:layout_height="0dp"
         android:clickable="true"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,31 +21,42 @@
             android:id="@+id/left_image"
             android:layout_width="18dp"
             android:layout_height="18dp"
+            android:layout_centerInParent="true"
             android:scaleType="centerInside"
             android:src="@drawable/tab_icon_back_black_default" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
+        android:layout_margin="0dp"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="#333333"
-        android:layout_margin="0dp"
-        app:layout_goneMarginLeft="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintLeft_toRightOf="@+id/left_layout"
-        app:layout_constraintBottom_toTopOf="@+id/line"/>
+        app:layout_goneMarginLeft="15dp" />
 
     <LinearLayout
         android:id="@+id/right_vg"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/line"
-        app:layout_constraintRight_toRightOf="parent"
         android:minWidth="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintRight_toRightOf="parent">
 
     </LinearLayout>
 
@@ -55,10 +64,10 @@
         android:id="@+id/right_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/line"
-        app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/ease_common_tab_bg"
-        android:minWidth="50dp">
+        android:minWidth="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:id="@+id/right_text"
@@ -83,6 +92,6 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#e0e0e0"
+        android:background="#f7f7f7"
         app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>

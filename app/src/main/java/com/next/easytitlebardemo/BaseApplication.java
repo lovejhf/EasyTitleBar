@@ -23,7 +23,8 @@ public class BaseApplication extends Application {
                 .backIconRes(R.mipmap.icon_l)
                 .backgroud(Color.parseColor("#00ffff"))
                 .titleSize(12)
+                .showLine(false)
                 .titleColor(Color.parseColor("#ffffff"))
-        .titleBarHeight(48);
+                .titleBarHeight(70);
     }
 }

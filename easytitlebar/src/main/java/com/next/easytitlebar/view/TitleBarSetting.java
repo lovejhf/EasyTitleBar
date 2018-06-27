@@ -30,14 +30,10 @@ public class TitleBarSetting {
     private int titleColor = Color.parseColor("#ffffff");
 
     //标题栏分割线的有无
-    private int lineShow;
+    private boolean lineShow = true;
 
     //默认标题栏高度
     private int titleBarHeight = 48;
-
-    public final int LINE_SHOW = 1;
-    public final int LINE_GONE = 0;
-
 
     private TitleBarSetting() {
     }
@@ -69,7 +65,7 @@ public class TitleBarSetting {
         return this;
     }
 
-    public TitleBarSetting showLine(int lineShow) {
+    public TitleBarSetting showLine(boolean lineShow) {
         this.lineShow = lineShow;
         return this;
     }
@@ -96,7 +92,7 @@ public class TitleBarSetting {
         return titleColor;
     }
 
-    public int getLineState() {
+    public boolean getShowLine() {
         return lineShow;
     }
 
@@ -114,7 +110,7 @@ public class TitleBarSetting {
         titleSize = 17;
         titleColor = Color.parseColor("#ffffff");
         titleBarHeight = 48;
-        lineShow = LINE_GONE;
+        lineShow = true;
     }
 
 }

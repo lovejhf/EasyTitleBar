@@ -10,15 +10,16 @@
     <com.next.easytitlebar.view.EasyTitleBar
         android:id="@+id/easyTitleBar"
         android:layout_width="match_parent"
-        app:title_style="left"
-        android:layout_height="48dp">
-    </com.next.easytitlebar.view.EasyTitleBar>
+        android:layout_height="wrap_content"
+        app:Easy_leftImageState="gone"
+        app:Easy_titleStyle="left"></com.next.easytitlebar.view.EasyTitleBar>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:textSize="30sp"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:textSize="30sp" />
 
 </LinearLayout>
