@@ -27,14 +27,14 @@
         <attr name="Easy_leftImageState" format="string" />
         <!--左边图标-->
         <attr name="Easy_leftImage" format="reference" />
+        <!--左边文字-->
+        <attr name="Easy_leftText" format="reference" />
+
+        <!--右边图标-->
+        <attr name="Easy_rightImage" format="reference" />
+        <!--右边文字-->
+        <attr name="Easy_rightText" format="reference" />
 
 
-
-        <attr name="titlebarRightText" format="string" />
-        <attr name="titlebarLeftState" format="string" />
-        <attr name="titlebarLeftImage" format="reference" />
-        <attr name="titlebarRightImage" format="reference" />
-        <attr name="titlebarBackground" format="reference|color" />
-        <attr name="titlebarBackgroundColor" format="color" />
     </declare-styleable>
 </resources>

@@ -160,7 +160,7 @@ public class EasyTitleBar extends RelativeLayout {
 
             //标题栏
             titleBarHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_titleBarHeight, titleBarHeight);
-            titleBarBackGround = ta.getColor(R.styleable.EasyTitleBar_titlebarBackground, titleBarBackGround);
+            titleBarBackGround = ta.getColor(R.styleable.EasyTitleBar_Easy_titleBarBackground, titleBarBackGround);
             RelativeLayout.LayoutParams titleParams = (RelativeLayout.LayoutParams) titleLayout.getLayoutParams();
             titleParams.height = (int) titleBarHeight;
             titleLayout.setBackgroundColor(titleBarBackGround);
@@ -196,17 +196,24 @@ public class EasyTitleBar extends RelativeLayout {
                 leftLayout.setVisibility(VISIBLE);
                 leftImage.setImageResource(backRes);
             }
+            //左侧文字
+            String leftTextStr = ta.getString(R.styleable.EasyTitleBar_Easy_leftText);
+            if (null != leftTextStr) {
+                leftImage.setVisibility(GONE);
+                leftText.setVisibility(VISIBLE);
+                leftText.setText(leftTextStr);
+            }
 
             //右侧图标
-            Drawable rightDrawable = ta.getDrawable(R.styleable.EasyTitleBar_titlebarRightImage);
+            Drawable rightDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightImage);
             if (null != rightDrawable) {
                 rightImage.setVisibility(VISIBLE);
                 rightText.setVisibility(GONE);
                 rightImage.setImageDrawable(rightDrawable);
             }
 
-
-            String rightTxt = ta.getString(R.styleable.EasyTitleBar_titlebarRightText);
+            //右侧文字
+            String rightTxt = ta.getString(R.styleable.EasyTitleBar_Easy_rightText);
             if (null != rightTxt) {
                 rightImage.setVisibility(GONE);
                 rightText.setVisibility(VISIBLE);
@@ -218,7 +225,7 @@ public class EasyTitleBar extends RelativeLayout {
             if (null != leftImageState && leftImageState.equals("gone")) {
                 leftLayout.setVisibility(GONE);
             }
-            Drawable background = ta.getDrawable(R.styleable.EasyTitleBar_titlebarBackground);
+            Drawable background = ta.getDrawable(R.styleable.EasyTitleBar_Easy_titleBarBackground);
             if (null != background) {
                 titleLayout.setBackgroundDrawable(background);
             }
