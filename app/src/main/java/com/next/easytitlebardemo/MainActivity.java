@@ -9,32 +9,62 @@ import com.next.easytitlebar.view.EasyTitleBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EasyTitleBar easyTitleBar;
+    private EasyTitleBar titlebar01;
+    private EasyTitleBar titlebar02;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        easyTitleBar = findViewById(R.id.easyTitleBar);
-        easyTitleBar.setTitle("钉钉");
+        initViews();
 
 
-        easyTitleBar.addItem(R.mipmap.ic_launcher, new EasyTitleBar.OnItemClickListener() {
+        initTitleBar01();
+
+        initTitleBar02();
+    }
+
+    private void initTitleBar02() {
+        titlebar02.addLeftImg(R.mipmap.icon_more,15,0, new EasyTitleBar.OnItemClickListener() {
             @Override
             public void OnItemEvent() {
-                Toast.makeText(MainActivity.this,"search",Toast.LENGTH_SHORT).show();
-                easyTitleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
-                easyTitleBar.getLeftLayout().setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
             }
         });
 
-        easyTitleBar.addItem(R.mipmap.ic_launcher, new EasyTitleBar.OnItemClickListener() {
+        titlebar02.addLeftText("Back",3,15, new EasyTitleBar.OnItemClickListener() {
             @Override
             public void OnItemEvent() {
-                Toast.makeText(MainActivity.this,"first",Toast.LENGTH_SHORT).show();
-                easyTitleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_CENTER);
-                easyTitleBar.getLeftLayout().setVisibility(View.VISIBLE);
+                Toast.makeText(MainActivity.this, "Back", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void initTitleBar01() {
+        titlebar01.setTitle("钉钉");
+
+
+        titlebar01.addRightImg(R.mipmap.icon_more, new EasyTitleBar.OnItemClickListener() {
+            @Override
+            public void OnItemEvent() {
+                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                titlebar01.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
+                //titlebar01.getLeftLayout().setVisibility(View.GONE);
+            }
+        });
+
+        titlebar01.addRightImg(R.mipmap.icon_history, new EasyTitleBar.OnItemClickListener() {
+            @Override
+            public void OnItemEvent() {
+                Toast.makeText(MainActivity.this, "first", Toast.LENGTH_SHORT).show();
+                titlebar01.setTitleStyle(EasyTitleBar.TITLE_STYLE_CENTER);
+              //  titlebar01.getLeftLayout().setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void initViews() {
+        titlebar01 = findViewById(R.id.titlebar01);
+        titlebar02 = findViewById(R.id.titlebar02);
     }
 }

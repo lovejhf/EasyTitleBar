@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="default_image_size">18dp</dimen>
+
+
+    <!--字体-->
+    <dimen name="default_subTilte_size">10sp</dimen>
+
+</resources>
