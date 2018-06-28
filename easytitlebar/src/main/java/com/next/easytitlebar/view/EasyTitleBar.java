@@ -219,9 +219,12 @@ public class EasyTitleBar extends RelativeLayout {
                 rightText.setVisibility(VISIBLE);
                 rightText.setText(rightTxt);
             }
+            String rightImageState = ta.getString(R.styleable.EasyTitleBar_Easy_rightLayoutState);
+            if (null != rightImageState && rightImageState.equals("gone")) {
+                rightLayout.setVisibility(GONE);
+            }
 
-
-            String leftImageState = ta.getString(R.styleable.EasyTitleBar_Easy_leftImageState);
+            String leftImageState = ta.getString(R.styleable.EasyTitleBar_Easy_leftLayoutState);
             if (null != leftImageState && leftImageState.equals("gone")) {
                 leftLayout.setVisibility(GONE);
             }
@@ -379,7 +382,7 @@ public class EasyTitleBar extends RelativeLayout {
      * @param textSize            文字大小
      * @param onItemClickListener 点击事件
      */
-    public void addLeftText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
+    public TextView addLeftText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
         rightImage.setVisibility(GONE);
         rightText.setVisibility(GONE);
 
@@ -405,18 +408,20 @@ public class EasyTitleBar extends RelativeLayout {
                 onItemClickListener.OnItemEvent();
             }
         });
+
+        return textView;
     }
 
-    public void addLeftText(String text, int textSize, final OnItemClickListener onItemClickListener) {
-        addLeftText(text, 15, 5, textSize, onItemClickListener);
+    public TextView addLeftText(String text, int textSize, final OnItemClickListener onItemClickListener) {
+        return addLeftText(text, 15, 5, textSize, onItemClickListener);
     }
 
-    public void addLeftText(String text, final OnItemClickListener onItemClickListener) {
-        addLeftText(text, 15, 5, leftTextSize, onItemClickListener);
+    public TextView addLeftText(String text, final OnItemClickListener onItemClickListener) {
+        return addLeftText(text, 15, 5, leftTextSize, onItemClickListener);
     }
 
-    public void addLeftText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        addLeftText(text, paddingleft, paddingright, leftTextSize, onItemClickListener);
+    public TextView addLeftText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
+        return addLeftText(text, paddingleft, paddingright, leftTextSize, onItemClickListener);
     }
 
 
@@ -429,7 +434,7 @@ public class EasyTitleBar extends RelativeLayout {
      * @param imgSize             图片大小
      * @param onItemClickListener 点击事件
      */
-    public void addLeftImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
+    public ImageView addLeftImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
         leftImage.setVisibility(GONE);
         leftText.setVisibility(GONE);
 
@@ -458,18 +463,20 @@ public class EasyTitleBar extends RelativeLayout {
                 onItemClickListener.OnItemEvent();
             }
         });
+
+        return imageView;
     }
 
-    public void addLeftImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
-        addLeftImg(icon, 15, 5, imgSize, onItemClickListener);
+    public ImageView addLeftImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
+        return addLeftImg(icon, 15, 5, imgSize, onItemClickListener);
     }
 
-    public void addLeftImg(int icon, final OnItemClickListener onItemClickListener) {
-        addLeftImg(icon, 15, 5, leftImgSize, onItemClickListener);
+    public ImageView addLeftImg(int icon, final OnItemClickListener onItemClickListener) {
+        return addLeftImg(icon, 15, 5, leftImgSize, onItemClickListener);
     }
 
-    public void addLeftImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        addLeftImg(icon, paddingleft, paddingright, leftImgSize, onItemClickListener);
+    public ImageView addLeftImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
+        return addLeftImg(icon, paddingleft, paddingright, leftImgSize, onItemClickListener);
     }
 
     //--------------  右侧
@@ -484,7 +491,7 @@ public class EasyTitleBar extends RelativeLayout {
      * @param imgSize             图片大小
      * @param onItemClickListener 点击事件
      */
-    public void addRightImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
+    public ImageView addRightImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
         rightImage.setVisibility(GONE);
         rightText.setVisibility(GONE);
 
@@ -513,18 +520,20 @@ public class EasyTitleBar extends RelativeLayout {
                 onItemClickListener.OnItemEvent();
             }
         });
+
+        return imageView;
     }
 
-    public void addRightImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
-        addRightImg(icon, 5, 15, imgSize, onItemClickListener);
+    public ImageView addRightImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
+        return addRightImg(icon, 5, 15, imgSize, onItemClickListener);
     }
 
-    public void addRightImg(int icon, final OnItemClickListener onItemClickListener) {
-        addRightImg(icon, 5, 15, rightImgSize, onItemClickListener);
+    public ImageView addRightImg(int icon, final OnItemClickListener onItemClickListener) {
+        return addRightImg(icon, 5, 15, rightImgSize, onItemClickListener);
     }
 
-    public void addRightImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        addRightImg(icon, paddingleft, paddingright, rightImgSize, onItemClickListener);
+    public ImageView addRightImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
+        return addRightImg(icon, paddingleft, paddingright, rightImgSize, onItemClickListener);
     }
 
 
@@ -537,7 +546,7 @@ public class EasyTitleBar extends RelativeLayout {
      * @param textSize            文字大小
      * @param onItemClickListener 点击事件
      */
-    public void addRightText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
+    public TextView addRightText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
         rightImage.setVisibility(GONE);
         rightText.setVisibility(GONE);
 
@@ -563,18 +572,19 @@ public class EasyTitleBar extends RelativeLayout {
                 onItemClickListener.OnItemEvent();
             }
         });
+        return textView;
     }
 
-    public void addRightText(String text, int textSize, final OnItemClickListener onItemClickListener) {
-        addRightText(text, 5, 15, textSize, onItemClickListener);
+    public TextView addRightText(String text, int textSize, final OnItemClickListener onItemClickListener) {
+        return addRightText(text, 5, 15, textSize, onItemClickListener);
     }
 
-    public void addRightText(String text, final OnItemClickListener onItemClickListener) {
-        addRightText(text, 5, 15, rightTextSize, onItemClickListener);
+    public TextView addRightText(String text, final OnItemClickListener onItemClickListener) {
+        return addRightText(text, 5, 15, rightTextSize, onItemClickListener);
     }
 
-    public void addRightText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        addRightText(text, paddingleft, paddingright, rightTextSize, onItemClickListener);
+    public TextView addRightText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
+        return addRightText(text, paddingleft, paddingright, rightTextSize, onItemClickListener);
     }
 
 

@@ -3,6 +3,7 @@ package com.next.easytitlebardemo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTitleBar02() {
-        titlebar02.addLeftImg(R.mipmap.icon_more,15,0, new EasyTitleBar.OnItemClickListener() {
+        final ImageView image = titlebar02.addLeftImg(R.mipmap.icon_more,15,0, new EasyTitleBar.OnItemClickListener() {
             @Override
             public void OnItemEvent() {
                 Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         titlebar02.addLeftText("Back",3,15, new EasyTitleBar.OnItemClickListener() {
             @Override
             public void OnItemEvent() {
+                image.setImageResource(R.mipmap.icon_l);
                 Toast.makeText(MainActivity.this, "Back", Toast.LENGTH_SHORT).show();
             }
         });

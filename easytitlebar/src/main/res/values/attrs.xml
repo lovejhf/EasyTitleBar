@@ -24,7 +24,7 @@
 
 
         <!--左边第一个图标的有无-->
-        <attr name="Easy_leftImageState" format="string" />
+        <attr name="Easy_leftLayoutState" format="string" />
         <!--左边图标-->
         <attr name="Easy_leftImage" format="reference" />
         <!--左边文字-->
@@ -34,6 +34,8 @@
         <attr name="Easy_rightImage" format="reference" />
         <!--右边文字-->
         <attr name="Easy_rightText" format="reference" />
+        <!--右边第一个图标的有无-->
+        <attr name="Easy_rightLayoutState" format="string" />
 
 
     </declare-styleable>
