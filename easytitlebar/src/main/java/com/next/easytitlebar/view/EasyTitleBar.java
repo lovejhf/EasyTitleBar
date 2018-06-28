@@ -405,7 +405,8 @@ public class EasyTitleBar extends RelativeLayout {
         textLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.OnItemEvent();
+                if (onItemClickListener != null)
+                    onItemClickListener.OnItemEvent();
             }
         });
 
@@ -460,7 +461,8 @@ public class EasyTitleBar extends RelativeLayout {
         imageLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.OnItemEvent();
+                if (onItemClickListener != null)
+                    onItemClickListener.OnItemEvent();
             }
         });
 
@@ -517,7 +519,8 @@ public class EasyTitleBar extends RelativeLayout {
         imageLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.OnItemEvent();
+                if (onItemClickListener != null)
+                    onItemClickListener.OnItemEvent();
             }
         });
 
@@ -569,7 +572,8 @@ public class EasyTitleBar extends RelativeLayout {
         textLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.OnItemEvent();
+                if (onItemClickListener != null)
+                    onItemClickListener.OnItemEvent();
             }
         });
         return textView;
