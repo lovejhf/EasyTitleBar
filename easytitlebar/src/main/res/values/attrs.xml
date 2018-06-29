@@ -37,6 +37,8 @@
         <!--右边第一个图标的有无-->
         <attr name="Easy_rightLayoutState" format="string" />
 
+        <!--设置是否充满状态栏-->
+        <attr name="Easy_fitsSystemWindows" format="boolean" />
 
     </declare-styleable>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 
 import com.next.easytitlebar.R;
-import com.next.easytitlebar.utils.SmallUtil;
 
 /**
  * Created by Administrator on 2018/6/23.

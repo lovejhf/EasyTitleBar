@@ -8,7 +8,7 @@ import android.view.WindowManager;
  * Created by Jue on 2016/3/29.
  * 常用小工具类
  */
-public class SmallUtil {
+public class EasyUtil {
 
     /**
      * 获取屏幕宽度
@@ -24,7 +24,7 @@ public class SmallUtil {
      * 获取屏幕高度
      */
     public static int getScreenHeith(Context context) {
-        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
         return height;
     }
@@ -32,7 +32,7 @@ public class SmallUtil {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public static int dip2px(Context context,float dpValue) {
+    public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
@@ -40,7 +40,7 @@ public class SmallUtil {
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2dip(Context context,float pxValue) {
+    public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -52,7 +52,7 @@ public class SmallUtil {
      * @param pxValue （DisplayMetrics类中属性scaledDensity）
      * @return
      */
-    public static int px2sp(Context context,float pxValue) {
+    public static int px2sp(Context context, float pxValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -63,9 +63,22 @@ public class SmallUtil {
      * @param spValue （DisplayMetrics类中属性scaledDensity）
      * @return
      */
-    public static int sp2px(Context context,float spValue) {
+    public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+
+    public static int getColorWithAlpha(float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        return a + rgb;
+    }
+
+    public static int getColorWithRatio(float ratio, int baseColor) {
+        float alpha = Math.min(1, ratio);
+        return getColorWithAlpha(alpha, baseColor);
+    }
+
 
 }
