@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_leftLayoutState="gone"
+        app:Easy_rightImage="@mipmap/icon_history"
         app:Easy_title="首页"></com.next.easytitlebar.view.EasyTitleBar>
 
     <com.next.easytitlebar.view.EasyTitleBar

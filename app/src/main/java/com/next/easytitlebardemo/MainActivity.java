@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
               //  titlebar01.getLeftLayout().setVisibility(View.VISIBLE);
             }
         });
+
+
     }
 
     private void initViews() {

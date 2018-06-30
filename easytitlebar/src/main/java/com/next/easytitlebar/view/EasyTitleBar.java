@@ -377,8 +377,8 @@ public class EasyTitleBar extends RelativeLayout {
      * @param onItemClickListener 点击事件
      */
     public TextView addLeftText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
-        rightImage.setVisibility(GONE);
-        rightText.setVisibility(GONE);
+        leftImage.setVisibility(GONE);
+        leftText.setVisibility(GONE);
 
         LinearLayout textLayout = new LinearLayout(getContext());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
