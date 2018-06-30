@@ -79,7 +79,6 @@
             android:id="@+id/right_layout"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:background="@drawable/ease_common_tab_bg"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintRight_toRightOf="parent">
 
