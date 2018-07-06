@@ -23,7 +23,7 @@ public class BaseApplication extends Application {
         EasyTitleBar.init()
                 .backIconRes(R.mipmap.icon_l)
                 .backgroud(ContextCompat.getColor(this, R.color.appColor))
-                .titleSize(12)
+                .titleSize(17)
                 .showLine(false)
                 .titleColor(Color.parseColor("#ffffff"))
                 .titleBarHeight(48);

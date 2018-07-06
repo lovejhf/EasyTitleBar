@@ -142,7 +142,7 @@ public class EasyTitleBar extends RelativeLayout {
             return;
         titleBarBackGround = titleBarSetting.getBackgroud();
         backRes = titleBarSetting.getBack_icon();
-        titleTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getTitleSize());
+        titleTextSize = titleBarSetting.getTitleSize();
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
     }
