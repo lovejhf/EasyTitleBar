@@ -23,7 +23,7 @@ public class TitleBarSetting {
     private int backgroud = Color.parseColor("#ffffff");
 
     //默认标题大小
-    private int titleSize = 17;
+    private int titleSize = 18;
 
     //默认标题颜色
     private int titleColor = Color.parseColor("#ffffff");

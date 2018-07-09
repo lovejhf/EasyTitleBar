@@ -15,4 +15,10 @@
         android:layout_height="60dp"
         android:onClick="onShade"
         android:text="渐变" />
+
+<!--    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="onClick3"
+        android:text="渐变" />-->
 </LinearLayout>

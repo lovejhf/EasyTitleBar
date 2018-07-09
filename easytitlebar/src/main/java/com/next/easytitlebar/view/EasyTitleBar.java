@@ -8,9 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.TintTypedArray;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 
 import com.next.easytitlebar.R;
 import com.next.easytitlebar.utils.EasyUtil;
+
+import java.util.logging.Logger;
 
 
 /**
@@ -47,6 +54,7 @@ public class EasyTitleBar extends RelativeLayout {
 
     private ViewGroup right_vg;
     private ViewGroup left_vg;
+    private ViewGroup title_vg;
 
     //标题栏高度
     private float titleBarHeight = EasyUtil.dip2px(getContext(), 48);
@@ -60,7 +68,7 @@ public class EasyTitleBar extends RelativeLayout {
     private int backRes = R.drawable.tab_icon_back_black_default;
 
     //标题字体大小
-    private float titleTextSize = EasyUtil.sp2px(getContext(), 13);
+    private float titleTextSize = 18;
     //标题字体颜色
     private int titleColor = Color.parseColor("#333333");
     //标题字排列风格
@@ -75,6 +83,8 @@ public class EasyTitleBar extends RelativeLayout {
     private int titleLineColor = Color.parseColor("#cccccc");
 
     private OnItemClickListener onItemClickListener;
+
+    private OnDoubleClickListener onDoubleClickListener;
 
     //右侧图片大小
     private int leftImgSize = (int) getResources().getDimension(R.dimen.default_image_size);
@@ -93,22 +103,24 @@ public class EasyTitleBar extends RelativeLayout {
     private ConstraintSet leftConstraintSet = new ConstraintSet();
     private ConstraintSet centerConstraintSet = new ConstraintSet();
     private String lineState;
+    private GestureDetector detector;
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
-        this(context, attrs);
+        super(context, attrs, defStyle);
+        init(context, attrs, defStyle);
     }
 
     public EasyTitleBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        super(context, attrs, 0);
+        init(context, attrs, 0);
     }
 
     public EasyTitleBar(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, 0);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, int defStyle) {
         LayoutInflater.from(context).inflate(R.layout.easy_titlebar, this);
 
         fit_cl = findViewById(R.id.fit_cl);
@@ -128,13 +140,33 @@ public class EasyTitleBar extends RelativeLayout {
         titleLayout = findViewById(R.id.root);
         titleLine = findViewById(R.id.line);
 
+
         leftConstraintSet.clone(fit_cl);
         centerConstraintSet.clone(fit_cl);
 
+        initEvent();
 
         initSetting();
 
         parseStyle(context, attrs);
+    }
+
+    private void initEvent() {
+        detector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if (onDoubleClickListener != null)
+                    onDoubleClickListener.onDoubleEvent(title_tv);
+                return super.onDoubleTap(e);
+            }
+        });
+
+        titleLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return detector.onTouchEvent(event);
+            }
+        });
     }
 
     private void initSetting() {
@@ -149,6 +181,7 @@ public class EasyTitleBar extends RelativeLayout {
 
     private void parseStyle(Context context, AttributeSet attrs) {
         if (attrs != null) {
+
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EasyTitleBar);
 
             boolean fitSystemWindow = ta.getBoolean(R.styleable.EasyTitleBar_Easy_fitsSystemWindows, false);
@@ -249,6 +282,10 @@ public class EasyTitleBar extends RelativeLayout {
         }
     }
 
+    public void setOnDoubleClickListener(OnDoubleClickListener onDoubleClickListener) {
+        this.onDoubleClickListener = onDoubleClickListener;
+    }
+
     public void setEasyFitsWindows(boolean fitSystem) {
         titleLayout.setFitsSystemWindows(fitSystem);
     }
@@ -269,6 +306,8 @@ public class EasyTitleBar extends RelativeLayout {
 
     /**
      * 获取标题
+     *
+     * @return
      */
     public TextView getTitle() {
         return title_tv;
@@ -600,4 +639,10 @@ public class EasyTitleBar extends RelativeLayout {
         titleBarSetting = TitleBarSetting.getInstance();
         return titleBarSetting;
     }
+
+    //双击事件
+    public interface OnDoubleClickListener {
+        public void onDoubleEvent(View view);
+    }
+
 }

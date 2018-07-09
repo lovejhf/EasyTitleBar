@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.next.easytitlebar.utils.EasyUtil;
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -60,6 +61,20 @@ public class ShadeActivity extends Activity {
         titleBar = findViewById(R.id.titleBar);
         titleBar.setEasyFitsWindows(true);
         mNestedScrollView = findViewById(R.id.mNestedScrollView);
+
+        titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
+            @Override
+            public void onDoubleEvent(View view) {
+                Toast.makeText(ShadeActivity.this, "你总点我干嘛", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        titleBar.getLeftLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ShadeActivity.this, "返回喽", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

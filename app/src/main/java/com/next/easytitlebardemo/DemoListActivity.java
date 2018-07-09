@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.next.easytitlebardemo.ui.TestActivity;
+
 /**
  * Created by Administrator on 2018/6/29.
  */
@@ -26,5 +28,9 @@ public class DemoListActivity extends Activity {
 
     public void onNormal(View view){
         startActivity(new Intent(DemoListActivity.this,MainActivity.class));
+    }
+
+    public void onClick3(View view){
+        startActivity(new Intent(DemoListActivity.this,TestActivity.class));
     }
 }
