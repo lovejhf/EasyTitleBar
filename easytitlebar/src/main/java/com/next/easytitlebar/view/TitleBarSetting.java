@@ -15,7 +15,7 @@ public class TitleBarSetting {
     private static TitleBarSetting setting;
 
     //默认返回图标
-    private int back_icon = R.drawable.tab_icon_back_black_default;
+    private int back_icon = R.drawable.icon_back;
 
     //默认背景颜色
     private int backgroud = Color.parseColor("#62e3ec");

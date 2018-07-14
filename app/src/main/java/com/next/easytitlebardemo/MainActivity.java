@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private EasyTitleBar titlebar02;
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
@@ -26,13 +25,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-
         initViews();
 
 
         initTitleBar01();
 
         initTitleBar02();
+
+        super.onCreate(savedInstanceState);
     }
 
     private void initTitleBar02() {
@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         titleBar.addRightView(new EasyTitleBar.LayoutBuilder(MainActivity.this)
                 .icon(R.mipmap.icon_more)
-                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnItemClickListener() {
+                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
                     @Override
-                    public void OnItemEvent() {
+                    public void OnMenuEvent() {
                         titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
                         titleBar.getBackLayout().setVisibility(View.GONE);
                     }
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         titleBar.addRightView(new EasyTitleBar.LayoutBuilder(MainActivity.this)
                 .text("居中")
-                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnItemClickListener() {
+                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
                     @Override
-                    public void OnItemEvent() {
+                    public void OnMenuEvent() {
                         titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_CENTER);
                         titleBar.getBackLayout().setVisibility(View.VISIBLE);
                     }

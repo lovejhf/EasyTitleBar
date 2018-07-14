@@ -170,7 +170,7 @@ public class EasyTitleBar extends RelativeLayout {
         titleBarBackGround = titleBarSetting.getBackgroud();
 
         backRes = titleBarSetting.getBack_icon();
-        titleTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getTitleSize());
+        titleTextSize =  titleBarSetting.getTitleSize();
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
 
@@ -180,7 +180,7 @@ public class EasyTitleBar extends RelativeLayout {
         backImageSize = EasyUtil.dip2px(getContext(), titleBarSetting.getBackImageSize());
         menuImgSize = EasyUtil.dip2px(getContext(), titleBarSetting.getMenuImgSize());
         menuTextColor = titleBarSetting.getMenuTextColor();
-        menuTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getMenuTextSize());
+        menuTextSize =titleBarSetting.getMenuTextSize();
         titleStyle = titleBarSetting.getTitleStyle();
         lineHeight = titleBarSetting.getLineHeight();
         lineColor = titleBarSetting.getLineColor();
@@ -630,7 +630,7 @@ public class EasyTitleBar extends RelativeLayout {
                 imageView.setImageBitmap(null);
             }
             LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            imageParams.width = EasyUtil.dip2px(context, menuImgSize) + paddingleft + paddingright;
+            imageParams.width = (int) (menuImgSize+ paddingleft + paddingright);
             imageView.setLayoutParams(imageParams);
             imageView.setPadding(paddingleft, 0, paddingright, 0);
 

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -28,7 +29,7 @@ public class BaseApplication extends Application {
                     ((EasyTitleBar) activity.findViewById(R.id.titleBar)).getBackLayout().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            activity.finish();
+                            activity.onBackPressed();
                         }
                     });
                 }

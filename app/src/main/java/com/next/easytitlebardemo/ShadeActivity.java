@@ -28,7 +28,6 @@ public class ShadeActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
@@ -42,6 +41,8 @@ public class ShadeActivity extends Activity {
         initViews();
 
         initDataAndEvent();
+
+        super.onCreate(savedInstanceState);
     }
 
     private void initDataAndEvent() {
