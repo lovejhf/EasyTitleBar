@@ -46,20 +46,23 @@ public class EasyTitleBar extends RelativeLayout {
     private TextView title_tv;
     private LinearLayout titleLayout;
     private ConstraintLayout fit_cl;
-
     //返回箭头图片
     private ImageView backImage;
     //返回箭头的父布局
     private LinearLayout backLayout;
-
     private ViewGroup rightLayout;
     private ViewGroup leftLayout;
     private ViewGroup title_vg;
+    //分割线
+    private View titleLine;
+
+
+
 
     //menu图片大小
-    private static int menuImgSize;
+    private static float menuImgSize;
     //menu文字大小
-    private static int menuTextSize;
+    private static float menuTextSize;
     //menu文字颜色
     private static int menuTextColor;
 
@@ -68,12 +71,8 @@ public class EasyTitleBar extends RelativeLayout {
     //标题栏背景
     private int titleBarBackGround;
 
-    //分割线
-    private View titleLine;
-
     //左边的图标（一般为返回箭头）
     private int backRes;
-
 
     //返回箭头、左右viewgroup距两边的距离
     private float parentPadding;
@@ -81,20 +80,20 @@ public class EasyTitleBar extends RelativeLayout {
     private static float viewPadding;
 
     //标题字体大小
-    private float titleTextSize = 18;
+    private float titleTextSize;
     //标题字体颜色
-    private int titleColor = Color.parseColor("#333333");
+    private int titleColor;
     //标题字排列风格  居中或是居左
     private int titleStyle;
-
 
     public static final int TITLE_STYLE_LEFT = 0;
     public static final int TITLE_STYLE_CENTER = 1;
 
     //分割线高度
-    private float titleLineHeight = 1;
+    private float lineHeight;
     //分割线颜色
-    private int titleLineColor = Color.parseColor("#cccccc");
+    private int lineColor;
+    private int backImageSize;
 
     private OnDoubleClickListener onDoubleClickListener;
 
@@ -102,7 +101,6 @@ public class EasyTitleBar extends RelativeLayout {
     private ConstraintSet centerConstraintSet = new ConstraintSet();
     private String lineState;
     private GestureDetector detector;
-    private int backImageSize;
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -164,24 +162,28 @@ public class EasyTitleBar extends RelativeLayout {
         });
     }
 
+
+    //初始化
     private void initSetting() {
         if (titleBarSetting == null)
             return;
         titleBarBackGround = titleBarSetting.getBackgroud();
 
         backRes = titleBarSetting.getBack_icon();
-        titleTextSize = titleBarSetting.getTitleSize();
+        titleTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getTitleSize());
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
 
-        parentPadding = EasyUtil.dip2px(getContext(),titleBarSetting.getParentPadding());
-        viewPadding = EasyUtil.dip2px(getContext(),titleBarSetting.getViewPadding());
+        parentPadding = EasyUtil.dip2px(getContext(), titleBarSetting.getParentPadding());
+        viewPadding = EasyUtil.dip2px(getContext(), titleBarSetting.getViewPadding());
 
-        backImageSize = titleBarSetting.getBackImageSize();
-        menuImgSize = titleBarSetting.getMenuImgSize();
+        backImageSize = EasyUtil.dip2px(getContext(), titleBarSetting.getBackImageSize());
+        menuImgSize = EasyUtil.dip2px(getContext(), titleBarSetting.getMenuImgSize());
         menuTextColor = titleBarSetting.getMenuTextColor();
-        menuTextSize = titleBarSetting.getMenuTextSize();
+        menuTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getMenuTextSize());
         titleStyle = titleBarSetting.getTitleStyle();
+        lineHeight = titleBarSetting.getLineHeight();
+        lineColor = titleBarSetting.getLineColor();
     }
 
     private void parseStyle(Context context, AttributeSet attrs) {
@@ -216,9 +218,6 @@ public class EasyTitleBar extends RelativeLayout {
             titleParams.height = (int) titleBarHeight;
             fit_cl.setLayoutParams(titleParams);
 
-           /* String titleElevation = ta.getDimension(R.styleable.EasyTitleBar_Easy_titleSize, titleTextSize);
-            titleLayout.setElevation();*/
-
             //标题
             String title = ta.getString(R.styleable.EasyTitleBar_Easy_title);
             if (null != title) {
@@ -237,11 +236,11 @@ public class EasyTitleBar extends RelativeLayout {
             }
 
 
-            titleLineHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_lineHeight, 1);
-            titleLineColor = ta.getColor(R.styleable.EasyTitleBar_Easy_lineColor, Color.parseColor("#cccccc"));
+            lineHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_lineHeight, 1);
+            lineColor = ta.getColor(R.styleable.EasyTitleBar_Easy_lineColor, Color.parseColor("#cccccc"));
             ConstraintLayout.LayoutParams lineParams = (ConstraintLayout.LayoutParams) titleLine.getLayoutParams();
-            lineParams.height = (int) titleLineHeight;
-            titleLine.setBackgroundColor(titleLineColor);
+            lineParams.height = (int) lineHeight;
+            titleLine.setBackgroundColor(lineColor);
             titleLine.setLayoutParams(lineParams);
 
             //间距
@@ -272,6 +271,13 @@ public class EasyTitleBar extends RelativeLayout {
 
             lineState = ta.getString(R.styleable.EasyTitleBar_Easy_lineState);
 
+
+            //菜单图标大小
+            menuImgSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_menuImgSize, menuImgSize);
+            //菜单文字大小
+            menuTextSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_menuTextSize, menuTextSize);
+            //菜单文字颜色
+            menuTextColor = (int) ta.getDimension(R.styleable.EasyTitleBar_Easy_menuTextColor, menuTextColor);
 
             //左边xml添加View
 
@@ -533,7 +539,7 @@ public class EasyTitleBar extends RelativeLayout {
         private int paddingleft;
         private int paddingright;
 
-        private int menuImgSize;
+        private float menuImgSize;
         private float menuTextSize;
         private int menuTextColor;
 
@@ -598,7 +604,7 @@ public class EasyTitleBar extends RelativeLayout {
             textView.setText(text);
             textView.setTextSize(menuTextSize);
             textView.setTextColor(menuTextColor);
-            textView.setPadding( paddingleft, 0,  paddingright, 0);
+            textView.setPadding(paddingleft, 0, paddingright, 0);
             textView.setGravity(Gravity.CENTER);
 
             LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -624,9 +630,9 @@ public class EasyTitleBar extends RelativeLayout {
                 imageView.setImageBitmap(null);
             }
             LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            imageParams.width = EasyUtil.dip2px(context, menuImgSize) +  paddingleft + paddingright;
+            imageParams.width = EasyUtil.dip2px(context, menuImgSize) + paddingleft + paddingright;
             imageView.setLayoutParams(imageParams);
-            imageView.setPadding( paddingleft, 0,  paddingright, 0);
+            imageView.setPadding(paddingleft, 0, paddingright, 0);
 
             imageView.setOnClickListener(new OnClickListener() {
                 @Override

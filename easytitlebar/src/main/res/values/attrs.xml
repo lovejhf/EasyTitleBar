@@ -73,5 +73,13 @@
         <attr name="Easy_fitsSystemWindows" format="boolean" />
 
 
+        <!--菜单图标大小-->
+        <attr name="Easy_menuImgSize" format="dimension" />
+        <!--菜单文字大小-->
+        <attr name="Easy_menuTextSize" format="dimension" />
+        <!--菜单文字颜色-->
+        <attr name="Easy_menuTextColor" format="reference" />
+
+
     </declare-styleable>
 </resources>

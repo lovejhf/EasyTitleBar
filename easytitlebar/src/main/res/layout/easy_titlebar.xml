@@ -26,7 +26,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/tab_icon_back_black_default" />
+                android:src="@drawable/icon_back" />
 
         </LinearLayout>
 

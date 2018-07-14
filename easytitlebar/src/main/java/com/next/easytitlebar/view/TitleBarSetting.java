@@ -44,6 +44,9 @@ public class TitleBarSetting {
     private int menuTextColor = Color.parseColor("#ffffff");
     private int titleStyle;
 
+    private int lineHeight = 1;
+    private int lineColor = Color.parseColor("#ffffff");
+
     private TitleBarSetting() {
     }
 
@@ -52,6 +55,11 @@ public class TitleBarSetting {
             setting = new TitleBarSetting();
         }
         return setting;
+    }
+
+    public TitleBarSetting lineColor(int lineColor) {
+        this.lineColor = lineColor;
+        return this;
     }
 
     public TitleBarSetting backIconRes(int back_icon) {
@@ -84,6 +92,11 @@ public class TitleBarSetting {
         return this;
     }
 
+    public TitleBarSetting ti(int titleColor) {
+        this.titleColor = titleColor;
+        return this;
+    }
+
     public TitleBarSetting showLine(boolean lineShow) {
         this.lineShow = lineShow;
         return this;
@@ -111,6 +124,11 @@ public class TitleBarSetting {
 
     public TitleBarSetting titleStyle(int titleStyle) {
         this.titleStyle = titleStyle;
+        return this;
+    }
+
+    public TitleBarSetting lineHeight(int lineHeight) {
+        this.lineHeight = lineHeight;
         return this;
     }
 
@@ -172,4 +190,13 @@ public class TitleBarSetting {
         return menuImgSize;
     }
 
+
+    public int getLineHeight() {
+        return lineHeight;
+    }
+
+
+    public int getLineColor() {
+        return lineColor;
+    }
 }
