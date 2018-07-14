@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/appColor"
+            app:expandedTitleMarginStart="10dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+           <!-- <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                app:layout_collapseMode="pin"
+                android:text="hhhh" />-->
+            <com.next.easytitlebar.view.EasyTitleBar
+                app:title="@string/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:Easy_title="PHP是世界上最好的语言"
+                app:titleTextColor="@color/white"
+                app:Easy_fitsSystemWindows="true"
+                app:Easy_titleBarBackground="@android:color/transparent"
+                app:layout_collapseMode="pin"></com.next.easytitlebar.view.EasyTitleBar>
+
+          <!--  <android.support.v7.widget.Toolbar
+                 android:id="@+id/toolBar"
+                 android:layout_width="match_parent"
+                 android:layout_height="48dp"
+                 app:layout_collapseMode="pin"
+                 app:title="你是打"></android.support.v7.widget.Toolbar>-->
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="10dp"
+            android:padding="12dp"
+            android:text="安装
+ThinkPHP提供多个方式的安装，包括官网下载、Composer安装以及GIT下载，对于新手来说，有必要理解这几种安装方式的区别。
+
+官网下载：一般都是稳定版本（并不会实时更新），有些大的版本还会提供核心版（不含扩展）和完整版（包含常用扩展）两个版本；
+Composer安装：是一种主流的安装方式，Composer也分为稳定版和开发版安装，如果是安装的稳定版则可以update到最新的稳定版，如果是安装的开发版那么update到的也是实时的开发版，安装慢的可以使用国内镜像，但注意存在一定的缓存时间；
+GIT安装：直接通过git地址安装的方式，优势是可以实时更新，跟着官方开发版本走的用户可以选择GIT更新，也方便及时反馈和提交PR，除了Github之外，国内的码云和Coding代码托管平台都有ThinkPHP5的镜像，请自行选择。
+官网下载
+ThinkPHP最新的稳定版本可以在（官方网站下载页）下载，不过官网下载版本并不是实时更新的，我们会在每个版本更新发布的时候重新打包，如果你需要实时更新版本，请使用Git版本库或者Composer安装。
+
+【 5.1 】
+5.1版本开始官方不再提供打包下载版本，请选择Composer或者GIt安装
+
+Composer安装和更新
+ThinkPHP5.0支持使用Composer安装和更新，如果还没有安装 Composer，你可以按 Composer安装 中的方法安装。在 Linux 和 Mac OS X 中可以运行如下命令：
+
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+在 Windows 中，你需要下载并运行 Composer-Setup.exe。
+
+提示：
+如果遇到任何问题或者想更深入地学习 Composer，请参考 Composer 官方文档（英文），看云上有 Composer 的中文版本。
+
+如果你已经安装有 Composer 请确保使用的是最新版本，或者可以用 composer self-update 命令更新为最新版本。
+
+由于众所周知的原因，国外的网站连接速度很慢，并且随时可能被“墙”甚至“不存在”。因此安装的时间可能会比较长，我们建议通过下面的方式使用国内镜像。
+
+打开命令行窗口（windows用户）或控制台（Linux、Mac 用户）并执行如下命令：
+
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+然后在命令行下面，切换到你的web根目录下面并执行下面的命令：
+
+composer create-project topthink/think=5.0.*  tp5  --prefer-dist
+【 5.1 】使用须知
+5.1版本安装使用下面的指令即可
+
+composer create-project topthink/think  tp5  --prefer-dist
+不过注意，如果你的PHP版本低于5.6的话 将仍然安装5.0版本
+
+如果出现错误提示，请根据提示操作或者参考Composer中文文档。
+
+如果之前使用Composer安装的话，首先切换到你的tp5目录，然后使用下面的命令更新框架到最新版本（注意因为缓存关系，composer不一定是及时更新的）：
+
+composer update
+注意：
+使用composer update更新核心框架会清空原来的核心框架目录，如果你定制了核心框架或者添加了扩展在核心目录的话，建议使用后面的Git方式更新。
+
+Git下载和更新
+ThinkPHP使用Git版本库进行更新迭代，如果你不太了解Composer或者觉得Composer太慢，也可以使用git版本库安装和更新，ThinkPHP5.0拆分为多个仓库，下面是github（主要维护仓库）及国内的仓库地址：
+
+[ Github ]
+应用项目：https://github.com/top-think/think
+核心框架：https://github.com/top-think/framework
+[ 码云 ]
+应用项目：https://gitee.com/liu21st/thinkphp5.git
+核心框架：https://gitee.com/liu21st/framework.git
+[ Coding ]
+应用项目：https://git.coding.net/liu21st/thinkphp5.git
+核心框架：https://git.coding.net/liu21st/framework.git
+【 5.1 】使用须知
+5.0版本和5.1版本分别属于不同的分支，5.1需要switch到5.1分支
+
+提示：
+之所以设计为应用和核心仓库分离，是为了支持Composer单独更新核心框架。
+
+如果你还没安装Git，可以参考阅读 Pro Git第二版（中文）先。
+
+首先克隆下载应用项目仓库
+
+git clone https://github.com/top-think/think tp5
+然后切换到tp5目录下面，再克隆核心框架仓库：
+
+git clone https://github.com/top-think/framework thinkphp
+两个仓库克隆完成后，就完成了ThinkPHP5.0的Git方式下载，如果需要更新核心框架的时候，只需要切换到thinkphp核心目录下面，然后执行：
+
+git pull https://github.com/top-think/framework
+如果不熟悉git命令行，可以使用任何一个GIT客户端进行操作，在此不再详细说明。
+
+Github上还给新手提供了包含了常用扩展的完整版，可以免去composer安装的烦恼，下载地址：https://github.com/top-think/think/tree/archive
+
+GIT方式只能安装核心框架，官方扩展只能通过Composer安装。" />
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
+

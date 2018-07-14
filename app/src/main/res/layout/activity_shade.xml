@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/mNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -202,7 +202,7 @@ I thought I saw a figure standing in the shadows.
 
 我好像看见阴暗处站着一个人。" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
 
     <com.next.easytitlebar.view.EasyTitleBar
@@ -210,6 +210,7 @@ I thought I saw a figure standing in the shadows.
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_title="渐变Demo"
+        app:Easy_rightOneText="注册"
         app:Easy_titleBarBackground="@android:color/transparent"
         app:Easy_titleBarHeight="48dp"></com.next.easytitlebar.view.EasyTitleBar>
 </android.support.constraint.ConstraintLayout>

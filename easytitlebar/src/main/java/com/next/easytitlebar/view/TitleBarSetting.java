@@ -12,15 +12,13 @@ import com.next.easytitlebar.R;
 public class TitleBarSetting {
 
 
-    private Context mContext;
-
     private static TitleBarSetting setting;
 
     //默认返回图标
     private int back_icon = R.drawable.tab_icon_back_black_default;
 
     //默认背景颜色
-    private int backgroud = Color.parseColor("#ffffff");
+    private int backgroud = Color.parseColor("#62e3ec");
 
     //默认标题大小
     private int titleSize = 18;
@@ -33,6 +31,18 @@ public class TitleBarSetting {
 
     //默认标题栏高度
     private int titleBarHeight = 48;
+    private int parentPadding = 15;
+    private int viewPadding = 20;
+    //返回图片的大小
+    private int backImageSize = 18;
+
+    //menu图片大小
+    private int menuImgSize = 18;
+    //menu文字大小
+    private int menuTextSize = 16;
+    //menu文字颜色
+    private int menuTextColor = Color.parseColor("#ffffff");
+    private int titleStyle;
 
     private TitleBarSetting() {
     }
@@ -46,6 +56,16 @@ public class TitleBarSetting {
 
     public TitleBarSetting backIconRes(int back_icon) {
         this.back_icon = back_icon;
+        return this;
+    }
+
+    public TitleBarSetting menuTextSize(int menuTextSize) {
+        this.menuTextSize = menuTextSize;
+        return this;
+    }
+
+    public TitleBarSetting menuTextColor(int menuTextColor) {
+        this.menuTextColor = menuTextColor;
         return this;
     }
 
@@ -69,11 +89,47 @@ public class TitleBarSetting {
         return this;
     }
 
+    public TitleBarSetting parentPadding(int parentPadding) {
+        this.parentPadding = parentPadding;
+        return this;
+    }
+
     public TitleBarSetting titleBarHeight(int height) {
         this.titleBarHeight = height;
         return this;
     }
 
+    public TitleBarSetting backImageSize(int size) {
+        this.backImageSize = size;
+        return this;
+    }
+
+    public TitleBarSetting menuImgSize(int size) {
+        this.menuImgSize = size;
+        return this;
+    }
+
+    public TitleBarSetting titleStyle(int titleStyle) {
+        this.titleStyle = titleStyle;
+        return this;
+    }
+
+    public int getTitleStyle() {
+        return titleStyle;
+    }
+
+    public int getBackImageSize() {
+        return backImageSize;
+    }
+
+
+    public int getMenuTextSize() {
+        return menuTextSize;
+    }
+
+    public int getMenuTextColor() {
+        return menuTextColor;
+    }
 
     public int getBack_icon() {
         return back_icon;
@@ -103,13 +159,17 @@ public class TitleBarSetting {
         this.titleBarHeight = height;
     }
 
-    public void reset() {
-        back_icon = R.drawable.tab_icon_back_black_default;
-        backgroud = Color.parseColor("#ffffff");
-        titleSize = 17;
-        titleColor = Color.parseColor("#ffffff");
-        titleBarHeight = 48;
-        lineShow = true;
+    public int getParentPadding() {
+        return parentPadding;
+    }
+
+    public int getViewPadding() {
+        return viewPadding;
+    }
+
+
+    public int getMenuImgSize() {
+        return menuImgSize;
     }
 
 }

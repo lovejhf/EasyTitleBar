@@ -6,6 +6,11 @@
         <!--标题栏背景颜色-->
         <attr name="Easy_titleBarBackground" format="color" />
 
+        <!--返回箭头、左右viewgroup距两边的距离-->
+        <attr name="Easy_parentPadding" format="dimension" />
+        <!--左右添加的view之间的距离-->
+        <attr name="Easy_viewPadding" format="dimension" />
+
         <!--标题文字-->
         <attr name="Easy_title" format="string" />
         <!--标题大小-->
@@ -13,7 +18,10 @@
         <!--标题颜色-->
         <attr name="Easy_titleColor" format="reference" />
         <!--标题位置-->
-        <attr name="Easy_titleStyle" format="string" />
+        <attr name="Easy_titleStyle">
+            <flag name="center" value="0" />
+            <flag name="left" value="1" />
+        </attr>
 
         <!--标题栏分割线的有无-->
         <attr name="Easy_lineState" format="string" />
@@ -23,22 +31,47 @@
         <attr name="Easy_lineColor" format="color" />
 
 
-        <!--左边第一个图标的有无-->
-        <attr name="Easy_leftLayoutState" format="string" />
+        <!--左边第一个返回箭头的有无-->
+        <attr name="Easy_backLayoutState">
+            <flag name="gone" value="0" />
+            <flag name="visiable" value="1" />
+        </attr>
+        <!--左边箭头icon-->
+        <attr name="Easy_backRes" format="reference" />
         <!--左边图标-->
-        <attr name="Easy_leftImage" format="reference" />
+        <attr name="Easy_leftOneImage" format="reference" />
         <!--左边文字-->
-        <attr name="Easy_leftText" format="reference" />
+        <attr name="Easy_leftOneText" format="string" />
+        <!--左边图标-->
+        <attr name="Easy_leftTwoImage" format="reference" />
+        <!--左边文字-->
+        <attr name="Easy_leftTwoText" format="string" />
+        <!--左边图标-->
+        <attr name="Easy_leftThreeImage" format="reference" />
+        <!--左边文字-->
+        <attr name="Easy_leftThreeText" format="string" />
+        <!--左边ViewGroup的有无-->
+        <attr name="Easy_leftLayoutState" format="string" />
 
         <!--右边图标-->
-        <attr name="Easy_rightImage" format="reference" />
+        <attr name="Easy_rightOneImage" format="reference" />
         <!--右边文字-->
-        <attr name="Easy_rightText" format="reference" />
-        <!--右边第一个图标的有无-->
+        <attr name="Easy_rightOneText" format="string" />
+        <!--右边图标-->
+        <attr name="Easy_rightTwoImage" format="reference" />
+        <!--右边文字-->
+        <attr name="Easy_rightTwoText" format="string" />
+
+        <!--右边图标-->
+        <attr name="Easy_rightThreeImage" format="reference" />
+        <!--右边文字-->
+        <attr name="Easy_rightThreeText" format="string" />
+        <!--右边viewGroup的有无-->
         <attr name="Easy_rightLayoutState" format="string" />
 
         <!--设置是否充满状态栏-->
         <attr name="Easy_fitsSystemWindows" format="boolean" />
+
 
     </declare-styleable>
 </resources>

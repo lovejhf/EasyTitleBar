@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.next.easytitlebar.utils.EasyUtil;
@@ -23,9 +24,7 @@ public class ShadeActivity extends Activity {
 
     private EasyTitleBar titleBar;
 
-    private NestedScrollView mNestedScrollView;
-
-    private LinearLayout ll;
+    private ScrollView mNestedScrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,14 +45,7 @@ public class ShadeActivity extends Activity {
     }
 
     private void initDataAndEvent() {
-        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.e("滑动距离", scrollY + "------" + oldScrollY);
-                int baseColor = getResources().getColor(R.color.appColor);
-                titleBar.setBackgroundColor(EasyUtil.getColorWithRatio((float) scrollY / EasyUtil.dip2px(ShadeActivity.this, 800), baseColor));
-            }
-        });
+        titleBar.attachScrollView(mNestedScrollView, R.color.appColor, 800, null);
     }
 
 
@@ -69,12 +61,6 @@ public class ShadeActivity extends Activity {
             }
         });
 
-        titleBar.getLeftLayout().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ShadeActivity.this, "返回喽", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 

@@ -3,9 +3,11 @@
 
 
     <dimen name="default_image_size">18dp</dimen>
-
-
     <!--字体-->
     <dimen name="default_subTilte_size">10sp</dimen>
+
+
+    <!--右侧View-->
+    <dimen name="right_layout_image_size">18dp</dimen>
 
 </resources>

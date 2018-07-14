@@ -8,10 +8,11 @@
     tools:context="com.next.easytitlebardemo.MainActivity">
 
     <com.next.easytitlebar.view.EasyTitleBar
-        android:id="@+id/titlebar01"
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:Easy_leftLayoutState="gone"
+        app:Easy_rightOneImage="@mipmap/ic_launcher"
+        app:Easy_fitsSystemWindows="true"
         app:Easy_titleStyle="left"></com.next.easytitlebar.view.EasyTitleBar>
 
 
@@ -19,15 +20,17 @@
         android:id="@+id/titlebar02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:Easy_leftLayoutState="gone"
-        app:Easy_rightImage="@mipmap/icon_history"
+        app:Easy_backLayoutState="gone"
+        android:layout_marginTop="5dp"
+        app:Easy_rightOneImage="@mipmap/icon_history"
         app:Easy_title="首页"></com.next.easytitlebar.view.EasyTitleBar>
 
     <com.next.easytitlebar.view.EasyTitleBar
         android:id="@+id/titlebar03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:Easy_leftLayoutState="gone"
-        app:Easy_rightImage="@mipmap/icon_history"
+        android:layout_marginTop="5dp"
+        app:Easy_backLayoutState="gone"
+        app:Easy_rightOneImage="@mipmap/icon_history"
         app:Easy_title="商城"></com.next.easytitlebar.view.EasyTitleBar>
 </LinearLayout>

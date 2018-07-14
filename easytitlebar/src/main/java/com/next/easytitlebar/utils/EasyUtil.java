@@ -1,7 +1,14 @@
 package com.next.easytitlebar.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ScrollView;
 
 
 /**
@@ -78,6 +85,63 @@ public class EasyUtil {
     public static int getColorWithRatio(float ratio, int baseColor) {
         float alpha = Math.min(1, ratio);
         return getColorWithAlpha(alpha, baseColor);
+    }
+
+
+    public static void addOnSrollListener(View view, final OnSrollListener onSrollListener) {
+        if (view instanceof NestedScrollView) {
+            ((NestedScrollView) view).setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    onSrollListener.onSrollEvent(scrollY);
+                }
+            });
+        } else if (view instanceof RecyclerView) {
+            ((RecyclerView) view).addOnScrollListener(new RecyclerView.OnScrollListener() {
+                private int totalDy = 0;
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    totalDy += dy;
+                    onSrollListener.onSrollEvent(totalDy);
+                }
+            });
+        } else if (view instanceof ScrollView) {
+            final ScrollView scrollView = (ScrollView) view;
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                private int lastY = 0;
+                private int touchEventId = -9983761;
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        View scroller = (View) msg.obj;
+                        if (msg.what == touchEventId) {
+                            if (lastY == scroller.getScrollY()) {
+                            } else {
+                                handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller), 5);
+                                lastY = scroller.getScrollY();
+                            }
+                            onSrollListener.onSrollEvent(lastY);
+                        }
+                    }
+                };
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        handler.sendMessageDelayed(
+                                handler.obtainMessage(touchEventId, v), 5);
+                    }
+                    return false;
+                }
+            });
+
+        }
+    }
+
+
+    public interface OnSrollListener {
+        void onSrollEvent(int scrollY);
     }
 
 

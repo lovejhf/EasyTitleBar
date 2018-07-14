@@ -5,22 +5,29 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.next.easytitlebar.R;
@@ -36,43 +43,50 @@ public class EasyTitleBar extends RelativeLayout {
 
     private static TitleBarSetting titleBarSetting;
 
-    private RelativeLayout leftLayout;
-
-
-    private ImageView leftImage;
-    private TextView leftText;
-    private ImageView rightImage;
-    private TextView rightText;
-
-
-    //右侧viewgroup
-    private RelativeLayout rightLayout;
     private TextView title_tv;
     private LinearLayout titleLayout;
     private ConstraintLayout fit_cl;
 
+    //返回箭头图片
+    private ImageView backImage;
+    //返回箭头的父布局
+    private LinearLayout backLayout;
 
-    private ViewGroup right_vg;
-    private ViewGroup left_vg;
+    private ViewGroup rightLayout;
+    private ViewGroup leftLayout;
     private ViewGroup title_vg;
 
+    //menu图片大小
+    private static int menuImgSize;
+    //menu文字大小
+    private static int menuTextSize;
+    //menu文字颜色
+    private static int menuTextColor;
+
     //标题栏高度
-    private float titleBarHeight = EasyUtil.dip2px(getContext(), 48);
+    private float titleBarHeight;
     //标题栏背景
-    private int titleBarBackGround = Color.parseColor("#FFFFFF");
+    private int titleBarBackGround;
 
     //分割线
     private View titleLine;
 
     //左边的图标（一般为返回箭头）
-    private int backRes = R.drawable.tab_icon_back_black_default;
+    private int backRes;
+
+
+    //返回箭头、左右viewgroup距两边的距离
+    private float parentPadding;
+    //左右viewgroup之间的距离
+    private static float viewPadding;
 
     //标题字体大小
     private float titleTextSize = 18;
     //标题字体颜色
     private int titleColor = Color.parseColor("#333333");
-    //标题字排列风格
-    private String titleStyle = "center";
+    //标题字排列风格  居中或是居左
+    private int titleStyle;
+
 
     public static final int TITLE_STYLE_LEFT = 0;
     public static final int TITLE_STYLE_CENTER = 1;
@@ -82,28 +96,13 @@ public class EasyTitleBar extends RelativeLayout {
     //分割线颜色
     private int titleLineColor = Color.parseColor("#cccccc");
 
-    private OnItemClickListener onItemClickListener;
-
     private OnDoubleClickListener onDoubleClickListener;
-
-    //右侧图片大小
-    private int leftImgSize = (int) getResources().getDimension(R.dimen.default_image_size);
-    //右侧字体颜色
-    private int leftTextColor = ContextCompat.getColor(getContext(), R.color.white);
-    //右侧字体大小
-    private int leftTextSize = (int) getResources().getDimension(R.dimen.default_subTilte_size);
-
-    //右侧图片大小
-    private int rightImgSize = (int) getResources().getDimension(R.dimen.default_image_size);
-    //右侧字体颜色
-    private int rightTextColor = ContextCompat.getColor(getContext(), R.color.white);
-    //右侧字体大小
-    private int rightTextSize = (int) getResources().getDimension(R.dimen.default_subTilte_size);
 
     private ConstraintSet leftConstraintSet = new ConstraintSet();
     private ConstraintSet centerConstraintSet = new ConstraintSet();
     private String lineState;
     private GestureDetector detector;
+    private int backImageSize;
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -125,16 +124,12 @@ public class EasyTitleBar extends RelativeLayout {
 
         fit_cl = findViewById(R.id.fit_cl);
 
-        leftLayout = findViewById(R.id.left_layout);
-
-        leftText = findViewById(R.id.left_text);
-        leftImage = findViewById(R.id.left_image);
-        rightImage = findViewById(R.id.right_image);
-        rightText = findViewById(R.id.right_text);
+        backImage = findViewById(R.id.left_image);
 
         rightLayout = findViewById(R.id.right_layout);
-        right_vg = findViewById(R.id.right_vg);
-        left_vg = findViewById(R.id.left_vg);
+        leftLayout = findViewById(R.id.left_layout);
+
+        backLayout = findViewById(R.id.back_layout);
 
         title_tv = findViewById(R.id.title_tv);
         titleLayout = findViewById(R.id.root);
@@ -173,10 +168,20 @@ public class EasyTitleBar extends RelativeLayout {
         if (titleBarSetting == null)
             return;
         titleBarBackGround = titleBarSetting.getBackgroud();
+
         backRes = titleBarSetting.getBack_icon();
         titleTextSize = titleBarSetting.getTitleSize();
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
+
+        parentPadding = EasyUtil.dip2px(getContext(),titleBarSetting.getParentPadding());
+        viewPadding = EasyUtil.dip2px(getContext(),titleBarSetting.getViewPadding());
+
+        backImageSize = titleBarSetting.getBackImageSize();
+        menuImgSize = titleBarSetting.getMenuImgSize();
+        menuTextColor = titleBarSetting.getMenuTextColor();
+        menuTextSize = titleBarSetting.getMenuTextSize();
+        titleStyle = titleBarSetting.getTitleStyle();
     }
 
     private void parseStyle(Context context, AttributeSet attrs) {
@@ -186,6 +191,22 @@ public class EasyTitleBar extends RelativeLayout {
 
             boolean fitSystemWindow = ta.getBoolean(R.styleable.EasyTitleBar_Easy_fitsSystemWindows, false);
             titleLayout.setFitsSystemWindows(fitSystemWindow);
+
+            //返回箭头
+            Drawable backDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_backRes);
+            if (backDrawable != null) {
+                backImage.setImageDrawable(backDrawable);
+            } else {
+                backImage.setImageResource(backRes);
+            }
+            int backLayoutState = ta.getInt(R.styleable.EasyTitleBar_Easy_backLayoutState, 1);
+            if (backLayoutState == 1) {
+                backLayout.setVisibility(VISIBLE);
+                backImage.setVisibility(VISIBLE);
+            } else {
+                backImage.setVisibility(GONE);
+                backLayout.setVisibility(GONE);
+            }
 
             //标题栏
             titleBarHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_titleBarHeight, titleBarHeight);
@@ -208,54 +229,13 @@ public class EasyTitleBar extends RelativeLayout {
             titleColor = ta.getColor(R.styleable.EasyTitleBar_Easy_titleColor, titleColor);
             title_tv.setTextColor(titleColor);
 
-            titleStyle = ta.getString(R.styleable.EasyTitleBar_Easy_titleStyle);
-            if (titleStyle == null || titleStyle.equals("center")) {
+            titleStyle = ta.getInt(R.styleable.EasyTitleBar_Easy_titleStyle, titleStyle);
+            if (titleStyle == 0) {
                 setTitleStyle(TITLE_STYLE_CENTER);
             } else {
                 setTitleStyle(TITLE_STYLE_LEFT);
             }
 
-            //左侧图标
-            Drawable leftDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftImage);
-            if (null != leftDrawable) {
-                leftLayout.setVisibility(VISIBLE);
-                leftImage.setImageDrawable(leftDrawable);
-            } else {
-                leftLayout.setVisibility(VISIBLE);
-                leftImage.setImageResource(backRes);
-            }
-            //左侧文字
-            String leftTextStr = ta.getString(R.styleable.EasyTitleBar_Easy_leftText);
-            if (null != leftTextStr) {
-                leftImage.setVisibility(GONE);
-                leftText.setVisibility(VISIBLE);
-                leftText.setText(leftTextStr);
-            }
-
-            //右侧图标
-            Drawable rightDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightImage);
-            if (null != rightDrawable) {
-                rightImage.setVisibility(VISIBLE);
-                rightText.setVisibility(GONE);
-                rightImage.setImageDrawable(rightDrawable);
-            }
-
-            //右侧文字
-            String rightTxt = ta.getString(R.styleable.EasyTitleBar_Easy_rightText);
-            if (null != rightTxt) {
-                rightImage.setVisibility(GONE);
-                rightText.setVisibility(VISIBLE);
-                rightText.setText(rightTxt);
-            }
-            String rightImageState = ta.getString(R.styleable.EasyTitleBar_Easy_rightLayoutState);
-            if (null != rightImageState && rightImageState.equals("gone")) {
-                rightLayout.setVisibility(GONE);
-            }
-
-            String leftImageState = ta.getString(R.styleable.EasyTitleBar_Easy_leftLayoutState);
-            if (null != leftImageState && leftImageState.equals("gone")) {
-                leftLayout.setVisibility(GONE);
-            }
 
             titleLineHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_lineHeight, 1);
             titleLineColor = ta.getColor(R.styleable.EasyTitleBar_Easy_lineColor, Color.parseColor("#cccccc"));
@@ -263,6 +243,18 @@ public class EasyTitleBar extends RelativeLayout {
             lineParams.height = (int) titleLineHeight;
             titleLine.setBackgroundColor(titleLineColor);
             titleLine.setLayoutParams(lineParams);
+
+            //间距
+            viewPadding = ta.getDimension(R.styleable.EasyTitleBar_Easy_viewPadding, viewPadding);
+            parentPadding = ta.getDimension(R.styleable.EasyTitleBar_Easy_parentPadding, parentPadding);
+            ConstraintLayout.LayoutParams backLayoutParams = (ConstraintLayout.LayoutParams) backLayout.getLayoutParams();
+            backLayoutParams.width = (int) (backImageSize + parentPadding * 2);
+            backLayout.setLayoutParams(backLayoutParams);
+
+            leftLayout.setPadding((int) (parentPadding - viewPadding / 2), 0, 0, 0);
+
+            rightLayout.setPadding(0, 0, (int) (parentPadding - (viewPadding / 2)), 0);
+
 
             //分割线
             lineState = ta.getString(R.styleable.EasyTitleBar_Easy_lineState);
@@ -278,9 +270,106 @@ public class EasyTitleBar extends RelativeLayout {
                 }
             }
 
+            lineState = ta.getString(R.styleable.EasyTitleBar_Easy_lineState);
+
+
+            //左边xml添加View
+
+            String leftImageState = ta.getString(R.styleable.EasyTitleBar_Easy_leftLayoutState);
+            if (null != leftImageState && leftImageState.equals("gone")) {
+                leftLayout.setVisibility(GONE);
+            }
+
+            //One
+            String leftOneText = ta.getString(R.styleable.EasyTitleBar_Easy_leftOneText);
+            if (!TextUtils.isEmpty(leftOneText)) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .text(leftOneText)
+                        .createText());
+            }
+            Drawable leftOneImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftOneImage);
+            if (leftOneImage != null) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .drawable(leftOneImage)
+                        .createImage());
+            }
+            //Two
+            String leftTwoText = ta.getString(R.styleable.EasyTitleBar_Easy_leftTwoText);
+            if (!TextUtils.isEmpty(leftTwoText)) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .text(leftTwoText)
+                        .createText());
+            }
+            Drawable leftTwoImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftTwoImage);
+            if (leftTwoImage != null) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .drawable(leftTwoImage)
+                        .createImage());
+            }
+            //Three
+            String leftThreeText = ta.getString(R.styleable.EasyTitleBar_Easy_leftThreeText);
+            if (!TextUtils.isEmpty(leftThreeText)) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .text(leftThreeText)
+                        .createText());
+            }
+            Drawable leftThreeImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftThreeImage);
+            if (leftThreeImage != null) {
+                addLeftView(new LayoutBuilder(getContext())
+                        .drawable(leftThreeImage)
+                        .createImage());
+            }
+
+            //右侧xml添加View
+            String rightImageState = ta.getString(R.styleable.EasyTitleBar_Easy_rightLayoutState);
+            if (null != rightImageState && rightImageState.equals("gone")) {
+                rightLayout.setVisibility(GONE);
+            }
+            //One
+            String rightOneText = ta.getString(R.styleable.EasyTitleBar_Easy_rightOneText);
+            if (!TextUtils.isEmpty(rightOneText)) {
+                addRightView(new LayoutBuilder(getContext())
+                        .text(rightOneText)
+                        .createText());
+            }
+            Drawable rightOneImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightOneImage);
+            if (rightOneImage != null) {
+                addRightView(new LayoutBuilder(getContext())
+                        .drawable(rightOneImage)
+                        .createImage());
+            }
+            //Two
+            String rightTwoText = ta.getString(R.styleable.EasyTitleBar_Easy_rightTwoText);
+            if (!TextUtils.isEmpty(rightTwoText)) {
+                addRightView(new LayoutBuilder(getContext())
+                        .text(rightTwoText)
+                        .createText());
+            }
+            Drawable rightTwoImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightTwoImage);
+            if (rightTwoImage != null) {
+                addRightView(new LayoutBuilder(getContext())
+                        .drawable(rightTwoImage)
+                        .createImage());
+            }
+            //Three
+            String rightThreeText = ta.getString(R.styleable.EasyTitleBar_Easy_rightThreeText);
+            if (!TextUtils.isEmpty(rightThreeText)) {
+                addRightView(new LayoutBuilder(getContext())
+                        .text(rightThreeText)
+                        .createText());
+            }
+            Drawable rightThreeImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightThreeImage);
+            if (rightThreeImage != null) {
+                addRightView(new LayoutBuilder(getContext())
+                        .drawable(rightThreeImage)
+                        .createImage());
+            }
+
+
             ta.recycle();
         }
     }
+
 
     public void setOnDoubleClickListener(OnDoubleClickListener onDoubleClickListener) {
         this.onDoubleClickListener = onDoubleClickListener;
@@ -295,12 +384,22 @@ public class EasyTitleBar extends RelativeLayout {
         titleLayout.setBackgroundColor(color);
     }
 
-    public RelativeLayout getLeftLayout() {
+    public ViewGroup getLeftLayout() {
         return leftLayout;
     }
 
-    public RelativeLayout getRightLayout() {
+    public ViewGroup getRightLayout() {
         return rightLayout;
+    }
+
+
+    /**
+     * 返回箭头的父布局
+     *
+     * @return
+     */
+    public LinearLayout getBackLayout() {
+        return backLayout;
     }
 
 
@@ -350,7 +449,7 @@ public class EasyTitleBar extends RelativeLayout {
         } else if (style == TITLE_STYLE_LEFT) {
             leftConstraintSet.connect(title_tv.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
             leftConstraintSet.connect(title_tv.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-            leftConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, leftLayout.getId(), ConstraintSet.RIGHT, 0);
+            leftConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, backLayout.getId(), ConstraintSet.RIGHT, 0);
             leftConstraintSet.setGoneMargin(title_tv.getId(), ConstraintSet.LEFT, dip2px(100));
             leftConstraintSet.applyTo(fit_cl);
         }
@@ -378,255 +477,26 @@ public class EasyTitleBar extends RelativeLayout {
         return titleLine;
     }
 
-
-    //* 左侧添加view
-
-    public void setLeftText(String leftTex) {
-        leftImage.setVisibility(GONE);
-        leftText.setVisibility(VISIBLE);
-        leftText.setText(leftTex);
-    }
-
-    public void setRightText(String rightTex) {
-        rightImage.setVisibility(GONE);
-        rightText.setVisibility(VISIBLE);
-        rightText.setText(rightTex);
-    }
-
-    public void setLeftImageResource(int resId) {
-        leftText.setVisibility(GONE);
-        leftImage.setVisibility(VISIBLE);
-        leftImage.setImageResource(resId);
-    }
-
-    public void setRightImageResource(int resId) {
-        rightImage.setVisibility(VISIBLE);
-        rightText.setVisibility(GONE);
-        rightImage.setImageResource(resId);
-    }
-
-
-    /**
-     * 向右侧添加文字（默认距左15dp,距右5dp,字体10sp）
-     *
-     * @param text                文字
-     * @param paddingleft         文字距左边的距离
-     * @param paddingright        文字距右边的距离
-     * @param textSize            文字大小
-     * @param onItemClickListener 点击事件
-     */
-    public TextView addLeftText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
-        leftImage.setVisibility(GONE);
-        leftText.setVisibility(GONE);
-
-        LinearLayout textLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        textLayout.setPadding(EasyUtil.dip2px(getContext(), paddingleft), 0, EasyUtil.dip2px(getContext(), paddingright), 0);
-        textLayout.setGravity(Gravity.CENTER);
-        textLayout.setLayoutParams(layoutParams);
-
-        TextView textView = new TextView(getContext());
-        textView.setText(text);
-        textView.setTextSize(textSize);
-        textView.setTextColor(leftTextColor);
-
-        textLayout.addView(textView);
-
-        left_vg.addView(textLayout);
-
-
-        textLayout.setOnClickListener(new OnClickListener() {
+    public void attachScrollView(View view, final int color, final int height, final OnSrollAlphaListener onSrollAlphaListener) {
+        EasyUtil.addOnSrollListener(view, new EasyUtil.OnSrollListener() {
             @Override
-            public void onClick(View view) {
-                if (onItemClickListener != null)
-                    onItemClickListener.OnItemEvent();
+            public void onSrollEvent(int scrollY) {
+                int baseColor = getResources().getColor(color);
+                float alpha = Math.min(1, (float) scrollY / EasyUtil.dip2px(getContext(), height));
+                setBackgroundColor(EasyUtil.getColorWithAlpha(alpha, baseColor));
+                if (onSrollAlphaListener != null)
+                    onSrollAlphaListener.OnSrollAlphaEvent(alpha);
             }
         });
-
-        return textView;
     }
 
-    public TextView addLeftText(String text, int textSize, final OnItemClickListener onItemClickListener) {
-        return addLeftText(text, 15, 5, textSize, onItemClickListener);
+    //双击事件
+    public interface OnDoubleClickListener {
+        public void onDoubleEvent(View view);
     }
 
-    public TextView addLeftText(String text, final OnItemClickListener onItemClickListener) {
-        return addLeftText(text, 15, 5, leftTextSize, onItemClickListener);
-    }
-
-    public TextView addLeftText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        return addLeftText(text, paddingleft, paddingright, leftTextSize, onItemClickListener);
-    }
-
-
-    /**
-     * 向左侧添加图片（默认距左15dp,距右5dp）
-     *
-     * @param icon                图片
-     * @param paddingleft         文字距左边的距离
-     * @param paddingright        文字距右边的距离
-     * @param imgSize             图片大小
-     * @param onItemClickListener 点击事件
-     */
-    public ImageView addLeftImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
-        leftImage.setVisibility(GONE);
-        leftText.setVisibility(GONE);
-
-        LinearLayout imageLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageLayout.setPadding(EasyUtil.dip2px(getContext(), paddingleft), 0, EasyUtil.dip2px(getContext(), paddingright), 0);
-
-        imageLayout.setGravity(Gravity.CENTER_VERTICAL);
-        imageLayout.setLayoutParams(layoutParams);
-
-        ImageView imageView = new ImageView(getContext());
-        imageView.setImageResource(icon);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageParams.width = imgSize;
-        imageParams.height = imgSize;
-        imageView.setLayoutParams(imageParams);
-
-        imageLayout.addView(imageView);
-
-        left_vg.addView(imageLayout);
-
-
-        imageLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClickListener != null)
-                    onItemClickListener.OnItemEvent();
-            }
-        });
-
-        return imageView;
-    }
-
-    public ImageView addLeftImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
-        return addLeftImg(icon, 15, 5, imgSize, onItemClickListener);
-    }
-
-    public ImageView addLeftImg(int icon, final OnItemClickListener onItemClickListener) {
-        return addLeftImg(icon, 15, 5, leftImgSize, onItemClickListener);
-    }
-
-    public ImageView addLeftImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        return addLeftImg(icon, paddingleft, paddingright, leftImgSize, onItemClickListener);
-    }
-
-    //--------------  右侧
-
-
-    /**
-     * 向右侧添加图片（默认距左5dp,距右15dp）
-     *
-     * @param icon                图片
-     * @param paddingleft         文字距左边的距离
-     * @param paddingright        文字距右边的距离
-     * @param imgSize             图片大小
-     * @param onItemClickListener 点击事件
-     */
-    public ImageView addRightImg(int icon, int paddingleft, int paddingright, int imgSize, final OnItemClickListener onItemClickListener) {
-        rightImage.setVisibility(GONE);
-        rightText.setVisibility(GONE);
-
-        LinearLayout imageLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageLayout.setPadding(EasyUtil.dip2px(getContext(), paddingleft), 0, EasyUtil.dip2px(getContext(), paddingright), 0);
-
-        imageLayout.setGravity(Gravity.CENTER_VERTICAL);
-        imageLayout.setLayoutParams(layoutParams);
-
-        ImageView imageView = new ImageView(getContext());
-        imageView.setImageResource(icon);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageParams.width = imgSize;
-        imageParams.height = imgSize;
-        imageView.setLayoutParams(imageParams);
-
-        imageLayout.addView(imageView);
-
-        right_vg.addView(imageLayout);
-
-
-        imageLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClickListener != null)
-                    onItemClickListener.OnItemEvent();
-            }
-        });
-
-        return imageView;
-    }
-
-    public ImageView addRightImg(int icon, int imgSize, final OnItemClickListener onItemClickListener) {
-        return addRightImg(icon, 5, 15, imgSize, onItemClickListener);
-    }
-
-    public ImageView addRightImg(int icon, final OnItemClickListener onItemClickListener) {
-        return addRightImg(icon, 5, 15, rightImgSize, onItemClickListener);
-    }
-
-    public ImageView addRightImg(int icon, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        return addRightImg(icon, paddingleft, paddingright, rightImgSize, onItemClickListener);
-    }
-
-
-    /**
-     * 向右侧添加文字（默认距左5dp,距右15dp,字体10sp）
-     *
-     * @param text                文字
-     * @param paddingleft         文字距左边的距离
-     * @param paddingright        文字距右边的距离
-     * @param textSize            文字大小
-     * @param onItemClickListener 点击事件
-     */
-    public TextView addRightText(String text, int paddingleft, int paddingright, int textSize, final OnItemClickListener onItemClickListener) {
-        rightImage.setVisibility(GONE);
-        rightText.setVisibility(GONE);
-
-        LinearLayout textLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        textLayout.setPadding(EasyUtil.dip2px(getContext(), paddingleft), 0, EasyUtil.dip2px(getContext(), paddingright), 0);
-        textLayout.setGravity(Gravity.CENTER);
-        textLayout.setLayoutParams(layoutParams);
-
-        TextView textView = new TextView(getContext());
-        textView.setText(text);
-        textView.setTextSize(textSize);
-        textView.setTextColor(rightTextColor);
-
-        textLayout.addView(textView);
-
-        right_vg.addView(textLayout);
-
-
-        textLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClickListener != null)
-                    onItemClickListener.OnItemEvent();
-            }
-        });
-        return textView;
-    }
-
-    public TextView addRightText(String text, int textSize, final OnItemClickListener onItemClickListener) {
-        return addRightText(text, 5, 15, textSize, onItemClickListener);
-    }
-
-    public TextView addRightText(String text, final OnItemClickListener onItemClickListener) {
-        return addRightText(text, 5, 15, rightTextSize, onItemClickListener);
-    }
-
-    public TextView addRightText(String text, int paddingleft, int paddingright, final OnItemClickListener onItemClickListener) {
-        return addRightText(text, paddingleft, paddingright, rightTextSize, onItemClickListener);
-    }
-
-
-    public interface OnItemClickListener {
-        void OnItemEvent();
+    public interface OnSrollAlphaListener {
+        void OnSrollAlphaEvent(float alpha);
     }
 
 
@@ -640,9 +510,148 @@ public class EasyTitleBar extends RelativeLayout {
         return titleBarSetting;
     }
 
-    //双击事件
-    public interface OnDoubleClickListener {
-        public void onDoubleEvent(View view);
+    public View getRightLayout(int position) {
+        return rightLayout.getChildAt(position);
+    }
+
+    public View getLeftLayout(int position) {
+        return leftLayout.getChildAt(position);
+    }
+
+
+    public static class LayoutBuilder {
+
+        private Context context;
+
+        private OnMenuClickListener onMenuClickListener;
+
+        private String text;
+
+        private int icon;
+        private Drawable drawable;
+
+        private int paddingleft;
+        private int paddingright;
+
+        private int menuImgSize;
+        private float menuTextSize;
+        private int menuTextColor;
+
+        public LayoutBuilder(Context context) {
+            this.context = context;
+            paddingleft = (int) (viewPadding / 2);
+            paddingright = (int) (viewPadding / 2);
+            menuImgSize = EasyTitleBar.menuImgSize;
+            menuTextSize = EasyTitleBar.menuTextSize;
+            menuTextColor = EasyTitleBar.menuTextColor;
+        }
+
+        public LayoutBuilder text(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public LayoutBuilder textSize(float textSize) {
+            this.menuTextSize = textSize;
+            return this;
+        }
+
+        public LayoutBuilder paddingleft(int paddingleft) {
+            this.paddingleft = paddingleft;
+            return this;
+        }
+
+        public LayoutBuilder paddingright(int paddingright) {
+            this.paddingright = paddingright;
+            return this;
+        }
+
+
+        public LayoutBuilder icon(int icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public LayoutBuilder menuImgSize(int menuImgSize) {
+            this.menuImgSize = menuImgSize;
+            return this;
+        }
+
+        public LayoutBuilder drawable(Drawable drawable) {
+            this.drawable = drawable;
+            return this;
+        }
+
+        public LayoutBuilder menuTextColor(int menuTextColor) {
+            this.menuTextColor = menuTextColor;
+            return this;
+        }
+
+        public LayoutBuilder onItemClickListener(LayoutBuilder.OnMenuClickListener onMenuClickListener) {
+            this.onMenuClickListener = onMenuClickListener;
+            return this;
+        }
+
+        public View createText() {
+
+            TextView textView = new TextView(context);
+            textView.setText(text);
+            textView.setTextSize(menuTextSize);
+            textView.setTextColor(menuTextColor);
+            textView.setPadding( paddingleft, 0,  paddingright, 0);
+            textView.setGravity(Gravity.CENTER);
+
+            LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            textView.setLayoutParams(textParams);
+
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onMenuClickListener != null)
+                        onMenuClickListener.OnMenuEvent();
+                }
+            });
+            return textView;
+        }
+
+        public View createImage() {
+            ImageView imageView = new ImageView(context);
+            if (drawable != null)
+                imageView.setImageDrawable(drawable);
+            else if (icon != 0) {
+                imageView.setImageResource(icon);
+            } else {
+                imageView.setImageBitmap(null);
+            }
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageParams.width = EasyUtil.dip2px(context, menuImgSize) +  paddingleft + paddingright;
+            imageView.setLayoutParams(imageParams);
+            imageView.setPadding( paddingleft, 0,  paddingright, 0);
+
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onMenuClickListener != null)
+                        onMenuClickListener.OnMenuEvent();
+                }
+            });
+
+            return imageView;
+        }
+
+
+        public interface OnMenuClickListener {
+            void OnMenuEvent();
+        }
+
+    }
+
+    public void addRightView(View view) {
+        rightLayout.addView(view);
+    }
+
+    public void addLeftView(View view) {
+        leftLayout.addView(view);
     }
 
 }
