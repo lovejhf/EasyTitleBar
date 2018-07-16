@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
         android:layout_marginTop="5dp"
-        app:Easy_rightOneImage="@mipmap/icon_history"
         app:Easy_title="首页"></com.next.easytitlebar.view.EasyTitleBar>
 
     <com.next.easytitlebar.view.EasyTitleBar

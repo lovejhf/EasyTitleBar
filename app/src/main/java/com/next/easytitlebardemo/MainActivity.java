@@ -36,6 +36,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTitleBar02() {
+        titlebar02 = findViewById(R.id.titlebar02);
+        titlebar02.addLeftImg(R.mipmap.ic_launcher, new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+            @Override
+            public void OnMenuEvent() {
+                Toast.makeText(MainActivity.this, "ic_launcher", Toast.LENGTH_SHORT).show();
+            }
+        });
+        titlebar02.addLeftText("halou", new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+            @Override
+            public void OnMenuEvent() {
+                Toast.makeText(MainActivity.this, "halou", Toast.LENGTH_SHORT).show();
+            }
+        });
+        titlebar02.addRightText("哈哈哈 ");
+        titlebar02.addRightImg(R.mipmap.icon_history, new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+            @Override
+            public void OnMenuEvent() {
+                Toast.makeText(MainActivity.this, "icon_history", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initTitleBar01() {

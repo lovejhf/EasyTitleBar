@@ -57,8 +57,6 @@ public class EasyTitleBar extends RelativeLayout {
     private View titleLine;
 
 
-
-
     //menu图片大小
     private static float menuImgSize;
     //menu文字大小
@@ -170,7 +168,7 @@ public class EasyTitleBar extends RelativeLayout {
         titleBarBackGround = titleBarSetting.getBackgroud();
 
         backRes = titleBarSetting.getBack_icon();
-        titleTextSize =  titleBarSetting.getTitleSize();
+        titleTextSize = titleBarSetting.getTitleSize();
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
 
@@ -180,7 +178,7 @@ public class EasyTitleBar extends RelativeLayout {
         backImageSize = EasyUtil.dip2px(getContext(), titleBarSetting.getBackImageSize());
         menuImgSize = EasyUtil.dip2px(getContext(), titleBarSetting.getMenuImgSize());
         menuTextColor = titleBarSetting.getMenuTextColor();
-        menuTextSize =titleBarSetting.getMenuTextSize();
+        menuTextSize = titleBarSetting.getMenuTextSize();
         titleStyle = titleBarSetting.getTitleStyle();
         lineHeight = titleBarSetting.getLineHeight();
         lineColor = titleBarSetting.getLineColor();
@@ -562,6 +560,12 @@ public class EasyTitleBar extends RelativeLayout {
             return this;
         }
 
+        public LayoutBuilder listener(OnMenuClickListener onMenuClickListener) {
+            this.onMenuClickListener = onMenuClickListener;
+            return this;
+        }
+
+
         public LayoutBuilder paddingleft(int paddingleft) {
             this.paddingleft = paddingleft;
             return this;
@@ -630,7 +634,7 @@ public class EasyTitleBar extends RelativeLayout {
                 imageView.setImageBitmap(null);
             }
             LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            imageParams.width = (int) (menuImgSize+ paddingleft + paddingright);
+            imageParams.width = (int) (menuImgSize + paddingleft + paddingright);
             imageView.setLayoutParams(imageParams);
             imageView.setPadding(paddingleft, 0, paddingright, 0);
 
@@ -658,6 +662,58 @@ public class EasyTitleBar extends RelativeLayout {
 
     public void addLeftView(View view) {
         leftLayout.addView(view);
+    }
+
+    public ImageView addRightImg(int res) {
+        return addRightImg(res,null);
+    }
+
+    public TextView addRightText(String str) {
+        return addRightText(str,null);
+    }
+
+    public ImageView addLeftImg(int res) {
+       return addLeftImg(res,null);
+    }
+
+    public TextView addLeftText(String str) {
+      return addLeftText(str,null);
+    }
+
+    public ImageView addRightImg(int res, LayoutBuilder.OnMenuClickListener onMenuClickListener) {
+        ImageView imageView = (ImageView) new LayoutBuilder(getContext())
+                .icon(res)
+                .listener(onMenuClickListener)
+                .createImage();
+        addRightView(imageView);
+        return imageView;
+    }
+
+    public TextView addRightText(String str, LayoutBuilder.OnMenuClickListener onMenuClickListener) {
+        TextView textView = (TextView) new LayoutBuilder(getContext())
+                .text(str)
+                .listener(onMenuClickListener)
+                .createText();
+        addRightView(textView);
+        return textView;
+    }
+
+    public ImageView addLeftImg(int res, LayoutBuilder.OnMenuClickListener onMenuClickListener) {
+        ImageView imageView = (ImageView) new LayoutBuilder(getContext())
+                .icon(res)
+                .listener(onMenuClickListener)
+                .createImage();
+        addLeftView(imageView);
+        return imageView;
+    }
+
+    public TextView addLeftText(String str, LayoutBuilder.OnMenuClickListener onMenuClickListener) {
+        TextView textView = (TextView) new LayoutBuilder(getContext())
+                .text(str)
+                .listener(onMenuClickListener)
+                .createText();
+        addLeftView(textView);
+        return textView;
     }
 
 }
