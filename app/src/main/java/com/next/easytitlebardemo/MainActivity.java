@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTitleBar01() {
-        titleBar.setTitle("钉钉");
-
 
     /*    titlebar01.addRightImg(R.mipmap.icon_more, new EasyTitleBar.OnItemClickListener() {
             @Override

@@ -1,7 +1,10 @@
 package com.next.easytitlebar.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -99,6 +102,7 @@ public class EasyTitleBar extends RelativeLayout {
     private ConstraintSet centerConstraintSet = new ConstraintSet();
     private String lineState;
     private GestureDetector detector;
+    private String title;
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -217,9 +221,19 @@ public class EasyTitleBar extends RelativeLayout {
             fit_cl.setLayoutParams(titleParams);
 
             //标题
-            String title = ta.getString(R.styleable.EasyTitleBar_Easy_title);
+            title = ta.getString(R.styleable.EasyTitleBar_Easy_title);
             if (null != title) {
                 title_tv.setText(title);
+            } else {
+                if (context instanceof Activity) {
+                    PackageManager pm = context.getPackageManager();
+                    try {
+                        ActivityInfo activityInfo = pm.getActivityInfo((((Activity) context).getComponentName()), 0);
+                        setTitle(activityInfo.loadLabel(pm).toString());
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             titleTextSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_titleSize, titleTextSize);
             title_tv.setTextSize(titleTextSize);
@@ -412,7 +426,16 @@ public class EasyTitleBar extends RelativeLayout {
      *
      * @return
      */
-    public TextView getTitle() {
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * 获取标题View
+     *
+     * @return
+     */
+    public TextView getTitleView() {
         return title_tv;
     }
 
@@ -665,19 +688,19 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public ImageView addRightImg(int res) {
-        return addRightImg(res,null);
+        return addRightImg(res, null);
     }
 
     public TextView addRightText(String str) {
-        return addRightText(str,null);
+        return addRightText(str, null);
     }
 
     public ImageView addLeftImg(int res) {
-       return addLeftImg(res,null);
+        return addLeftImg(res, null);
     }
 
     public TextView addLeftText(String str) {
-      return addLeftText(str,null);
+        return addLeftText(str, null);
     }
 
     public ImageView addRightImg(int res, LayoutBuilder.OnMenuClickListener onMenuClickListener) {
