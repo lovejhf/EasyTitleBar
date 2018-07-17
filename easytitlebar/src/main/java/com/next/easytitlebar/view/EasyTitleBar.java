@@ -680,7 +680,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public void addRightView(View view) {
-        rightLayout.addView(view);
+        rightLayout.addView(view,0);
     }
 
     public void addLeftView(View view) {
