@@ -538,7 +538,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public View getRightLayout(int position) {
-        return rightLayout.getChildAt(position);
+        return rightLayout.getChildAt(rightLayout.getChildCount() - 1 - position);
     }
 
     public View getLeftLayout(int position) {
@@ -680,7 +680,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public void addRightView(View view) {
-        rightLayout.addView(view,0);
+        rightLayout.addView(view, 0);
     }
 
     public void addLeftView(View view) {

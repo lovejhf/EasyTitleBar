@@ -68,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 //titlebar01.getLeftLayout().setVisibility(View.GONE);
             }
         });*/
-        titleBar.getRightLayout(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "嘻嘻嘻", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         titleBar.addRightView(new EasyTitleBar.LayoutBuilder(MainActivity.this)
                 .icon(R.mipmap.icon_more)
@@ -96,7 +90,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .createText());
-
+        titleBar.getRightLayout(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "嘻嘻嘻", Toast.LENGTH_SHORT).show();
+            }
+        });
+        titleBar.getRightLayout(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "11111111111111", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {
