@@ -209,6 +209,8 @@ I thought I saw a figure standing in the shadows.
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:Easy_menuTextSize="50sp"
+        app:Easy_menuImgSize="30dp"
         app:Easy_title="渐变Demo"
         app:Easy_rightOneText="注册"
         app:Easy_titleBarBackground="@android:color/transparent"

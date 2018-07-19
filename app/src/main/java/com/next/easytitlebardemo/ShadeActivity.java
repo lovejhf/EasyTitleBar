@@ -53,6 +53,30 @@ public class ShadeActivity extends Activity {
     private void initViews() {
         titleBar = findViewById(R.id.titleBar);
         titleBar.setEasyFitsWindows(true);
+
+        titleBar.addRightView(new EasyTitleBar.MenuBuilder(this,titleBar)
+                .icon(R.mipmap.icon_more)
+                .onItemClickListener(new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
+                    @Override
+                    public void OnMenuEvent() {
+                        titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
+                        titleBar.getBackLayout().setVisibility(View.GONE);
+                    }
+                })
+                .createImage());
+
+        titleBar.addRightView(
+                new EasyTitleBar.MenuBuilder(this,titleBar)
+                        .text("居中")
+                        .onItemClickListener(new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
+                            @Override
+                            public void OnMenuEvent() {
+                                titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_CENTER);
+                                titleBar.getBackLayout().setVisibility(View.VISIBLE);
+                            }
+                        })
+                        .createText());
+
         mNestedScrollView = findViewById(R.id.mNestedScrollView);
 
         titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {

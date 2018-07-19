@@ -24,7 +24,10 @@
         </attr>
 
         <!--标题栏分割线的有无-->
-        <attr name="Easy_lineState" format="string" />
+        <attr name="Easy_lineState">
+            <flag name="gone" value="0" />
+            <flag name="visiable" value="1" />
+        </attr>
         <!--标题栏分割线高度-->
         <attr name="Easy_lineHeight" format="dimension" />
         <!--标题栏分割线颜色-->
@@ -78,7 +81,7 @@
         <!--菜单文字大小-->
         <attr name="Easy_menuTextSize" format="dimension" />
         <!--菜单文字颜色-->
-        <attr name="Easy_menuTextColor" format="reference" />
+        <attr name="Easy_menuTextColor" format="color" />
 
 
     </declare-styleable>

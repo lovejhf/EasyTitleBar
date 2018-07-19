@@ -1,19 +1,24 @@
 package com.next.easytitlebardemo;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.next.easytitlebar.utils.EasyUtil;
 import com.next.easytitlebar.view.EasyTitleBar;
+
+import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
     private EasyTitleBar titleBar;
-    private EasyTitleBar titlebar02;
+    private EasyTitleBar whattitleBar;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,21 +41,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTitleBar02() {
-        titlebar02 = findViewById(R.id.titlebar02);
-        titlebar02.addLeftImg(R.mipmap.ic_launcher, new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+        whattitleBar.addLeftImg(R.mipmap.ic_launcher, new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
             @Override
             public void OnMenuEvent() {
                 Toast.makeText(MainActivity.this, "ic_launcher", Toast.LENGTH_SHORT).show();
             }
         });
-        titlebar02.addLeftText("halou", new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+        whattitleBar.addLeftText("halou", new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
             @Override
             public void OnMenuEvent() {
                 Toast.makeText(MainActivity.this, "halou", Toast.LENGTH_SHORT).show();
             }
         });
-        titlebar02.addRightText("哈哈哈 ");
-        titlebar02.addRightImg(R.mipmap.icon_history, new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+        whattitleBar.addRightText("哈哈哈 ");
+        whattitleBar.addRightImg(R.mipmap.icon_history, new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
             @Override
             public void OnMenuEvent() {
                 Toast.makeText(MainActivity.this, "icon_history", Toast.LENGTH_SHORT).show();
@@ -68,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 //titlebar01.getLeftLayout().setVisibility(View.GONE);
             }
         });*/
-
-        titleBar.addRightView(new EasyTitleBar.LayoutBuilder(MainActivity.this)
+        Log.e("getMenuTextSize", EasyUtil.px2sp(this, titleBar.getMenuTextSize())+"");
+        titleBar.addRightView(new EasyTitleBar.MenuBuilder(MainActivity.this,titleBar)
                 .icon(R.mipmap.icon_more)
-                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+                .onItemClickListener(new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
                     @Override
                     public void OnMenuEvent() {
                         titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
@@ -80,9 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .createImage());
 
-        titleBar.addRightView(new EasyTitleBar.LayoutBuilder(MainActivity.this)
+        titleBar.addRightView(
+                new EasyTitleBar.MenuBuilder(MainActivity.this,titleBar)
                 .text("居中")
-                .onItemClickListener(new EasyTitleBar.LayoutBuilder.OnMenuClickListener() {
+                .onItemClickListener(new EasyTitleBar.MenuBuilder.OnMenuClickListener() {
                     @Override
                     public void OnMenuEvent() {
                         titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_CENTER);
@@ -106,6 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         titleBar = findViewById(R.id.titleBar);
-        titlebar02 = findViewById(R.id.titlebar02);
+        whattitleBar = findViewById(R.id.whattitleBar);
     }
 }
