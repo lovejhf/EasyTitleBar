@@ -5,9 +5,11 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.next.easytitlebar.utils.EasyUtil;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EasyTitleBar titleBar;
     private EasyTitleBar whattitleBar;
+    private EasyTitleBar titlebar03;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -107,10 +110,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "11111111111111", Toast.LENGTH_SHORT).show();
             }
         });
+
+        View view = LayoutInflater.from(this).inflate(R.layout.schedule_menu_view, null);
+        titlebar03.addRightView(view);
     }
 
     private void initViews() {
         titleBar = findViewById(R.id.titleBar);
         whattitleBar = findViewById(R.id.whattitleBar);
+        titlebar03 = findViewById(R.id.titlebar03);
     }
 }

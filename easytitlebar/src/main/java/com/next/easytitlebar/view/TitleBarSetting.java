@@ -45,7 +45,7 @@ public class TitleBarSetting {
     private int titleStyle;
 
     private int lineHeight = 1;
-    private int lineColor = Color.parseColor("#ffffff");
+    private int lineColor = Color.parseColor("#f7f7f7");
 
     private TitleBarSetting() {
     }

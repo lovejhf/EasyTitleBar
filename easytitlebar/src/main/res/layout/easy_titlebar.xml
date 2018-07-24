@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:minWidth="50dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintLeft_toLeftOf="parent">
@@ -60,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:minWidth="50dp"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintRight_toRightOf="parent">
