@@ -172,7 +172,7 @@ public class EasyTitleBar extends RelativeLayout {
         titleBarBackGround = titleBarSetting.getBackgroud();
 
         backRes = titleBarSetting.getBack_icon();
-        titleTextSize = EasyUtil.sp2px(getContext(),titleBarSetting.getTitleSize());
+        titleTextSize = EasyUtil.sp2px(getContext(), titleBarSetting.getTitleSize());
         titleColor = titleBarSetting.getTitleColor();
         titleBarHeight = EasyUtil.dip2px(getContext(), titleBarSetting.getTitleBarHeight());
 
@@ -199,7 +199,8 @@ public class EasyTitleBar extends RelativeLayout {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EasyTitleBar);
 
             boolean fitSystemWindow = ta.getBoolean(R.styleable.EasyTitleBar_Easy_fitsSystemWindows, false);
-            titleLayout.setFitsSystemWindows(fitSystemWindow);
+            if (fitSystemWindow)
+                titleLayout.setPadding(0, EasyUtil.getStateBarHeight(getContext()), 0, 0);
 
             //返回箭头
             Drawable backDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_backRes);
@@ -285,8 +286,6 @@ public class EasyTitleBar extends RelativeLayout {
             menuImgSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_menuImgSize, menuImgSize);
             //菜单文字大小
             menuTextSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_menuTextSize, menuTextSize);
-            Log.e("---menuImgSize",EasyUtil.px2dip(context,menuImgSize)+"");
-            Log.e("---menuTextSize",EasyUtil.px2sp(context,menuTextSize)+"");
             //菜单文字颜色
             menuTextColor = ta.getColor(R.styleable.EasyTitleBar_Easy_menuTextColor, menuTextColor);
 
@@ -300,39 +299,39 @@ public class EasyTitleBar extends RelativeLayout {
             //One
             String leftOneText = ta.getString(R.styleable.EasyTitleBar_Easy_leftOneText);
             if (!TextUtils.isEmpty(leftOneText)) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .text(leftOneText)
                         .createText());
             }
             Drawable leftOneImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftOneImage);
             if (leftOneImage != null) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .drawable(leftOneImage)
                         .createImage());
             }
             //Two
             String leftTwoText = ta.getString(R.styleable.EasyTitleBar_Easy_leftTwoText);
             if (!TextUtils.isEmpty(leftTwoText)) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .text(leftTwoText)
                         .createText());
             }
             Drawable leftTwoImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftTwoImage);
             if (leftTwoImage != null) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .drawable(leftTwoImage)
                         .createImage());
             }
             //Three
             String leftThreeText = ta.getString(R.styleable.EasyTitleBar_Easy_leftThreeText);
             if (!TextUtils.isEmpty(leftThreeText)) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .text(leftThreeText)
                         .createText());
             }
             Drawable leftThreeImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_leftThreeImage);
             if (leftThreeImage != null) {
-                addLeftView(new MenuBuilder(getContext(),this)
+                addLeftView(new MenuBuilder(getContext(), this)
                         .drawable(leftThreeImage)
                         .createImage());
             }
@@ -345,39 +344,39 @@ public class EasyTitleBar extends RelativeLayout {
             //One
             String rightOneText = ta.getString(R.styleable.EasyTitleBar_Easy_rightOneText);
             if (!TextUtils.isEmpty(rightOneText)) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .text(rightOneText)
                         .createText());
             }
             Drawable rightOneImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightOneImage);
             if (rightOneImage != null) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .drawable(rightOneImage)
                         .createImage());
             }
             //Two
             String rightTwoText = ta.getString(R.styleable.EasyTitleBar_Easy_rightTwoText);
             if (!TextUtils.isEmpty(rightTwoText)) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .text(rightTwoText)
                         .createText());
             }
             Drawable rightTwoImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightTwoImage);
             if (rightTwoImage != null) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .drawable(rightTwoImage)
                         .createImage());
             }
             //Three
             String rightThreeText = ta.getString(R.styleable.EasyTitleBar_Easy_rightThreeText);
             if (!TextUtils.isEmpty(rightThreeText)) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .text(rightThreeText)
                         .createText());
             }
             Drawable rightThreeImage = ta.getDrawable(R.styleable.EasyTitleBar_Easy_rightThreeImage);
             if (rightThreeImage != null) {
-                addRightView(new MenuBuilder(getContext(),this)
+                addRightView(new MenuBuilder(getContext(), this)
                         .drawable(rightThreeImage)
                         .createImage());
             }
@@ -393,7 +392,8 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public void setEasyFitsWindows(boolean fitSystem) {
-        titleLayout.setFitsSystemWindows(fitSystem);
+        if (fitSystem)
+            titleLayout.setPadding(0, EasyUtil.getStateBarHeight(getContext()), 0, 0);
     }
 
 
@@ -562,7 +562,7 @@ public class EasyTitleBar extends RelativeLayout {
         private float menuTextSize;
         private int menuTextColor;
 
-        public MenuBuilder(Context context,EasyTitleBar titleBar) {
+        public MenuBuilder(Context context, EasyTitleBar titleBar) {
             this.context = context;
             paddingleft = (int) (titleBar.viewPadding / 2);
             paddingright = (int) (titleBar.viewPadding / 2);
@@ -570,7 +570,6 @@ public class EasyTitleBar extends RelativeLayout {
             menuTextSize = EasyUtil.px2sp(context, titleBar.menuTextSize);
             menuTextColor = titleBar.menuTextColor;
         }
-
 
 
         public MenuBuilder text(String text) {
@@ -709,7 +708,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public ImageView addRightImg(int res, MenuBuilder.OnMenuClickListener onMenuClickListener) {
-        ImageView imageView = (ImageView) new MenuBuilder(getContext(),this)
+        ImageView imageView = (ImageView) new MenuBuilder(getContext(), this)
                 .icon(res)
                 .listener(onMenuClickListener)
                 .createImage();
@@ -718,7 +717,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public TextView addRightText(String str, MenuBuilder.OnMenuClickListener onMenuClickListener) {
-        TextView textView = (TextView) new MenuBuilder(getContext(),this)
+        TextView textView = (TextView) new MenuBuilder(getContext(), this)
                 .text(str)
                 .listener(onMenuClickListener)
                 .createText();
@@ -727,7 +726,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public ImageView addLeftImg(int res, MenuBuilder.OnMenuClickListener onMenuClickListener) {
-        ImageView imageView = (ImageView) new MenuBuilder(getContext(),this)
+        ImageView imageView = (ImageView) new MenuBuilder(getContext(), this)
                 .icon(res)
                 .listener(onMenuClickListener)
                 .createImage();
@@ -736,7 +735,7 @@ public class EasyTitleBar extends RelativeLayout {
     }
 
     public TextView addLeftText(String str, MenuBuilder.OnMenuClickListener onMenuClickListener) {
-        TextView textView = (TextView) new MenuBuilder(getContext(),this)
+        TextView textView = (TextView) new MenuBuilder(getContext(), this)
                 .text(str)
                 .listener(onMenuClickListener)
                 .createText();

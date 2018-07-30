@@ -1,5 +1,6 @@
 package com.next.easytitlebar.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 
@@ -138,6 +140,24 @@ public class EasyUtil {
 
         }
     }
+
+
+    /**
+     * 获取状态栏高度,在页面还没有显示出来之前
+     *
+     * @param a
+     * @return
+     */
+    public static int getStateBarHeight(Context a) {
+        int result = 0;
+        int resourceId = a.getResources().getIdentifier("status_bar_height",
+                "dimen", "android");
+        if (resourceId > 0) {
+            result = a.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
 
 
     public interface OnSrollListener {
