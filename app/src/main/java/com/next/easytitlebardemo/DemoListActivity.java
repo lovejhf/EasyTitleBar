@@ -1,6 +1,5 @@
 package com.next.easytitlebardemo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.next.easytitlebardemo.ui.TestActivity;
+import com.next.easytitlebardemo.ui.demo.TestActivity;
 
 /**
  * Created by Administrator on 2018/6/29.

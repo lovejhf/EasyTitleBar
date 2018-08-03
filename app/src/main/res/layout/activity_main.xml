@@ -11,8 +11,8 @@
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:Easy_fitsSystemWindows="true"
         app:Easy_rightOneImage="@mipmap/ic_launcher"
+        app:Easy_backLayoutState="gone"
         app:Easy_titleStyle="left"></com.next.easytitlebar.view.EasyTitleBar>
 
 

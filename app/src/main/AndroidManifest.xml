@@ -3,7 +3,7 @@
     package="com.next.easytitlebardemo">
 
     <application
-        android:name=".BaseApplication"
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,7 +27,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.TestActivity"
+        <activity android:name=".ui.demo.TestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

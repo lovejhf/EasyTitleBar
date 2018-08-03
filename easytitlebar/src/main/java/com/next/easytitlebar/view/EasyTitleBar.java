@@ -87,8 +87,8 @@ public class EasyTitleBar extends RelativeLayout {
     //标题字排列风格  居中或是居左
     private int titleStyle;
 
-    public static final int TITLE_STYLE_LEFT = 0;
-    public static final int TITLE_STYLE_CENTER = 1;
+    public static final int TITLE_STYLE_LEFT = 1;
+    public static final int TITLE_STYLE_CENTER = 0;
 
     //分割线高度
     private float lineHeight;
@@ -209,6 +209,16 @@ public class EasyTitleBar extends RelativeLayout {
             } else {
                 backImage.setImageResource(backRes);
             }
+
+            //titleStyle放在backLayoutState判断之前
+            titleStyle = ta.getInt(R.styleable.EasyTitleBar_Easy_titleStyle, titleStyle);
+            if (titleStyle == 0) {
+                setTitleStyle(TITLE_STYLE_CENTER);
+            } else {
+                setTitleStyle(TITLE_STYLE_LEFT);
+            }
+
+
             int backLayoutState = ta.getInt(R.styleable.EasyTitleBar_Easy_backLayoutState, 1);
             if (backLayoutState == 1) {
                 backLayout.setVisibility(VISIBLE);
@@ -247,14 +257,6 @@ public class EasyTitleBar extends RelativeLayout {
 
             title_tv.setTextColor(titleColor);
 
-            titleStyle = ta.getInt(R.styleable.EasyTitleBar_Easy_titleStyle, titleStyle);
-            if (titleStyle == 0) {
-                setTitleStyle(TITLE_STYLE_CENTER);
-            } else {
-                setTitleStyle(TITLE_STYLE_LEFT);
-            }
-
-
             lineHeight = ta.getDimension(R.styleable.EasyTitleBar_Easy_lineHeight, lineHeight);
             lineColor = ta.getColor(R.styleable.EasyTitleBar_Easy_lineColor, lineColor);
             ConstraintLayout.LayoutParams lineParams = (ConstraintLayout.LayoutParams) titleLine.getLayoutParams();
@@ -290,9 +292,10 @@ public class EasyTitleBar extends RelativeLayout {
             menuTextColor = ta.getColor(R.styleable.EasyTitleBar_Easy_menuTextColor, menuTextColor);
 
             //左边xml添加View
-
-            String leftImageState = ta.getString(R.styleable.EasyTitleBar_Easy_leftLayoutState);
-            if (null != leftImageState && leftImageState.equals("gone")) {
+            int leftImageState = ta.getInt(R.styleable.EasyTitleBar_Easy_leftLayoutState, 1);
+            if (leftImageState == 1) {
+                leftLayout.setVisibility(VISIBLE);
+            } else {
                 leftLayout.setVisibility(GONE);
             }
 
@@ -337,10 +340,14 @@ public class EasyTitleBar extends RelativeLayout {
             }
 
             //右侧xml添加View
-            String rightImageState = ta.getString(R.styleable.EasyTitleBar_Easy_rightLayoutState);
-            if (null != rightImageState && rightImageState.equals("gone")) {
+            int rightImageState = ta.getInt(R.styleable.EasyTitleBar_Easy_rightLayoutState, 1);
+            if (rightImageState == 1) {
+                rightLayout.setVisibility(VISIBLE);
+            } else {
                 rightLayout.setVisibility(GONE);
             }
+
+
             //One
             String rightOneText = ta.getString(R.styleable.EasyTitleBar_Easy_rightOneText);
             if (!TextUtils.isEmpty(rightOneText)) {
@@ -487,7 +494,7 @@ public class EasyTitleBar extends RelativeLayout {
             leftConstraintSet.connect(title_tv.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
             leftConstraintSet.connect(title_tv.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
             leftConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, backLayout.getId(), ConstraintSet.RIGHT, 0);
-            leftConstraintSet.setGoneMargin(title_tv.getId(), ConstraintSet.LEFT, dip2px(100));
+            leftConstraintSet.setGoneMargin(title_tv.getId(), ConstraintSet.LEFT, dip2px(15));
             leftConstraintSet.applyTo(fit_cl);
         }
     }
@@ -507,7 +514,7 @@ public class EasyTitleBar extends RelativeLayout {
             @Override
             public void onSrollEvent(int scrollY) {
                 int baseColor = getResources().getColor(color);
-                float alpha = Math.min(1, (float) scrollY / EasyUtil.dip2px(getContext(), height));
+                float alpha = Math.min(1, (float) scrollY /height);
                 setBackgroundColor(EasyUtil.getColorWithAlpha(alpha, baseColor));
                 if (onSrollAlphaListener != null)
                     onSrollAlphaListener.OnSrollAlphaEvent(alpha);

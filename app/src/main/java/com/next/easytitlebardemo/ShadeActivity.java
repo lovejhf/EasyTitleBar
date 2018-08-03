@@ -24,7 +24,7 @@ public class ShadeActivity extends Activity {
 
     private EasyTitleBar titleBar;
 
-    private ScrollView mNestedScrollView;
+    private ScrollView mSrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class ShadeActivity extends Activity {
     }
 
     private void initDataAndEvent() {
-        titleBar.attachScrollView(mNestedScrollView, R.color.appColor, 800, null);
+        titleBar.attachScrollView(mSrollView, R.color.appColor, 800, null);
     }
 
 
@@ -77,7 +77,7 @@ public class ShadeActivity extends Activity {
                         })
                         .createText());
 
-        mNestedScrollView = findViewById(R.id.mNestedScrollView);
+        mSrollView = findViewById(R.id.mSrollView);
 
         titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
             @Override

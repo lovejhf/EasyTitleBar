@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
@@ -26,22 +24,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/me_bg"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 
-           <!-- <TextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center"
-                app:layout_collapseMode="pin"
-                android:text="hhhh" />-->
             <com.next.easytitlebar.view.EasyTitleBar
                 app:title="@string/app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:Easy_title="PHP是世界上最好的语言"
                 app:titleTextColor="@color/white"
+                app:Easy_lineState="gone"
+                app:Easy_titleStyle="left"
                 app:Easy_fitsSystemWindows="true"
                 app:Easy_titleBarBackground="@android:color/transparent"
                 app:layout_collapseMode="pin"></com.next.easytitlebar.view.EasyTitleBar>
@@ -67,6 +61,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="10dp"
             android:padding="12dp"
+            android:textSize="15sp"
             android:text="安装
 ThinkPHP提供多个方式的安装，包括官网下载、Composer安装以及GIT下载，对于新手来说，有必要理解这几种安装方式的区别。
 

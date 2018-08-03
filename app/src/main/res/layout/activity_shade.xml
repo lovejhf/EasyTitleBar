@@ -5,23 +5,27 @@
     android:layout_height="match_parent">
 
 
-    <ScrollView
-        android:id="@+id/mNestedScrollView"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/mSrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="60dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/me_bg" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="10dp"
+                android:padding="15dp"
                 android:text="[C] 阴影；影子
 the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
 
@@ -200,19 +204,20 @@ His face was deep in shadow , turned away from her.
 
 I thought I saw a figure standing in the shadows.
 
-我好像看见阴暗处站着一个人。" />
+我好像看见阴暗处站着一个人。"
+                android:textSize="15sp" />
         </LinearLayout>
-    </ScrollView>
-
+    </android.support.v4.widget.NestedScrollView>
 
     <com.next.easytitlebar.view.EasyTitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:Easy_menuTextSize="50sp"
-        app:Easy_menuImgSize="30dp"
-        app:Easy_title="渐变Demo"
-        app:Easy_rightOneText="注册"
-        app:Easy_titleBarBackground="@android:color/transparent"
-        app:Easy_titleBarHeight="48dp"></com.next.easytitlebar.view.EasyTitleBar>
+        app:Easy_backLayoutState="gone"
+        app:Easy_fitsSystemWindows="true"
+        app:Easy_lineState="gone"
+        app:Easy_title=""
+        app:Easy_titleBarBackground="@android:color/transparent"></com.next.easytitlebar.view.EasyTitleBar>
+
+
 </android.support.constraint.ConstraintLayout>

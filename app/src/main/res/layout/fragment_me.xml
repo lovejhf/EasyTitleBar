@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/me_bg" />
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:Easy_backLayoutState="gone"
+        app:Easy_lineState="gone"
+        app:Easy_fitsSystemWindows="true"
+        app:Easy_title="我的"
+        app:Easy_titleBarBackground="@android:color/transparent"></com.next.easytitlebar.view.EasyTitleBar>
+
+</android.support.constraint.ConstraintLayout>

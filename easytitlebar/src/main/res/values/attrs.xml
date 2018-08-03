@@ -16,7 +16,7 @@
         <!--标题大小-->
         <attr name="Easy_titleSize" format="dimension" />
         <!--标题颜色-->
-        <attr name="Easy_titleColor" format="reference" />
+        <attr name="Easy_titleColor" format="color" />
         <!--标题位置-->
         <attr name="Easy_titleStyle">
             <flag name="center" value="0" />
@@ -54,7 +54,10 @@
         <!--左边文字-->
         <attr name="Easy_leftThreeText" format="string" />
         <!--左边ViewGroup的有无-->
-        <attr name="Easy_leftLayoutState" format="string" />
+        <attr name="Easy_leftLayoutState">
+            <flag name="gone" value="0" />
+            <flag name="visiable" value="1" />
+        </attr>
 
         <!--右边图标-->
         <attr name="Easy_rightOneImage" format="reference" />
@@ -70,7 +73,10 @@
         <!--右边文字-->
         <attr name="Easy_rightThreeText" format="string" />
         <!--右边viewGroup的有无-->
-        <attr name="Easy_rightLayoutState" format="string" />
+        <attr name="Easy_rightLayoutState">
+            <flag name="gone" value="0" />
+            <flag name="visiable" value="1" />
+        </attr>
 
         <!--设置是否充满状态栏-->
         <attr name="Easy_fitsSystemWindows" format="boolean" />

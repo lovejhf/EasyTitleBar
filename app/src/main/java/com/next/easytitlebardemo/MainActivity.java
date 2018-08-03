@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+        }*/
 
         setContentView(R.layout.activity_main);
         initViews();
@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         titleBar.getRightLayout(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                titleBar.setTitleStyle(EasyTitleBar.TITLE_STYLE_LEFT);
+                titleBar.getBackLayout().setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, "嘻嘻嘻", Toast.LENGTH_SHORT).show();
             }
         });

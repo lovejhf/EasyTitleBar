@@ -4,5 +4,6 @@
     <!--通用颜色-->
     <color name="white">#FFFFFF</color>
     <color name="appColor">#62e3ec</color>
+    <color name="common_text_3">#333333</color>
 
 </resources>
