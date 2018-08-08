@@ -5,6 +5,8 @@
         <attr name="Easy_titleBarHeight" format="dimension" />
         <!--标题栏背景颜色-->
         <attr name="Easy_titleBarBackground" format="color" />
+        <!--填充状态栏的颜色-->
+        <attr name="Easy_fitColor" format="color|reference" />
 
         <!--返回箭头、左右viewgroup距两边的距离-->
         <attr name="Easy_parentPadding" format="dimension" />
@@ -36,8 +38,8 @@
 
         <!--左边第一个返回箭头的有无-->
         <attr name="Easy_backLayoutState">
-            <flag name="visiable" value="0" />
-            <flag name="gone" value="1" />
+            <flag name="visiable" value="1" />
+            <flag name="gone" value="0" />
         </attr>
         <!--左边箭头icon-->
         <attr name="Easy_backRes" format="reference" />
@@ -80,6 +82,8 @@
 
         <!--设置是否充满状态栏-->
         <attr name="Easy_fitsSystemWindows" format="boolean" />
+        <!--设置是否充满状态栏-->
+        <attr name="Easy_hasStatusPadding" format="boolean" />
 
 
         <!--菜单图标大小-->

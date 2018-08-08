@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.next.easytitlebardemo.ui.demo.TestActivity;
-
 /**
  * Created by Administrator on 2018/6/29.
  */
@@ -33,10 +31,10 @@ public class DemoListActivity extends AppCompatActivity {
 
 
     public void onNormal(View view){
-        startActivity(new Intent(DemoListActivity.this,MainActivity.class));
+        startActivity(new Intent(DemoListActivity.this, com.next.easytitlebardemo.MainActivity.class));
     }
 
     public void onClick3(View view){
-        startActivity(new Intent(DemoListActivity.this,TestActivity.class));
+        startActivity(new Intent(DemoListActivity.this, com.next.easytitlebardemo.ui.demo.MainActivity.class));
     }
 }

@@ -73,6 +73,8 @@ public class EasyTitleBar extends RelativeLayout {
     private float titleBarHeight;
     //标题栏背景
     private int titleBarBackGround;
+    //填充状态栏的颜色
+    private int fitColor;
 
     //左边的图标（一般为返回箭头）
     private int backRes;
@@ -105,8 +107,11 @@ public class EasyTitleBar extends RelativeLayout {
     private int lineState;
     private GestureDetector detector;
     private String title;
-    private int backLayoutState;
-    private boolean fitwindow = false;
+    private int backLayoutState = 1;
+    private boolean fitSystemWindow = false;
+    private View status_view;
+
+    private boolean hasStatusPadding;
 
     public EasyTitleBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -127,6 +132,8 @@ public class EasyTitleBar extends RelativeLayout {
         LayoutInflater.from(context).inflate(R.layout.easy_titlebar, this);
 
         fit_cl = findViewById(R.id.fit_cl);
+
+        status_view = findViewById(R.id.status_view);
 
         backImage = findViewById(R.id.left_image);
 
@@ -190,7 +197,8 @@ public class EasyTitleBar extends RelativeLayout {
         titleStyle = titleBarSetting.getTitleStyle();
         lineHeight = titleBarSetting.getLineHeight();
         lineColor = titleBarSetting.getLineColor();
-        fitwindow = titleBarSetting.isFitSystemWindow();
+        fitSystemWindow = titleBarSetting.isFitSystemWindow();
+        hasStatusPadding = titleBarSetting.isHasStatusPadding();
         if (titleBarSetting.getShowLine()) {
             lineState = 1;
         } else {
@@ -203,11 +211,21 @@ public class EasyTitleBar extends RelativeLayout {
 
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EasyTitleBar);
 
-            boolean fitSystemWindow = ta.getBoolean(R.styleable.EasyTitleBar_Easy_fitsSystemWindows, fitwindow);
-            if (fitSystemWindow)
-                titleLayout.setPadding(0, EasyUtil.getStateBarHeight(getContext()), 0, 0);
-            else
-                titleLayout.setPadding(0, 0, 0, 0);
+            fitSystemWindow = ta.getBoolean(R.styleable.EasyTitleBar_Easy_fitsSystemWindows, fitSystemWindow);
+            fit_cl.setFitsSystemWindows(fitSystemWindow);
+
+            hasStatusPadding = ta.getBoolean(R.styleable.EasyTitleBar_Easy_hasStatusPadding, hasStatusPadding);
+            if (hasStatusPadding) {
+                LinearLayout.LayoutParams statusParams = (LinearLayout.LayoutParams) status_view.getLayoutParams();
+                statusParams.height = EasyUtil.getStateBarHeight(getContext());
+                status_view.setLayoutParams(statusParams);
+            } else {
+                LinearLayout.LayoutParams statusParams = (LinearLayout.LayoutParams) status_view.getLayoutParams();
+                statusParams.height = 0;
+                status_view.setLayoutParams(statusParams);
+            }
+
+
             //返回箭头
             Drawable backDrawable = ta.getDrawable(R.styleable.EasyTitleBar_Easy_backRes);
             if (backDrawable != null) {
@@ -224,6 +242,11 @@ public class EasyTitleBar extends RelativeLayout {
             LinearLayout.LayoutParams titleParams = (LinearLayout.LayoutParams) fit_cl.getLayoutParams();
             titleParams.height = (int) titleBarHeight;
             fit_cl.setLayoutParams(titleParams);
+
+
+            fitColor = titleBarBackGround;
+            fitColor = ta.getColor(R.styleable.EasyTitleBar_Easy_fitColor, fitColor);
+            status_view.setBackgroundColor(fitColor);
 
             //标题
             title = ta.getString(R.styleable.EasyTitleBar_Easy_title);
@@ -377,14 +400,14 @@ public class EasyTitleBar extends RelativeLayout {
             rightLayout.setPadding(0, 0, (int) (parentPadding - (viewPadding / 2)), 0);
 
 
-            backLayoutState = ta.getInt(R.styleable.EasyTitleBar_Easy_backLayoutState, 0);
-            if (backLayoutState == 1) {
-                backImage.setVisibility(GONE);
-                backLayout.setVisibility(GONE);
-            } else {
+            backLayoutState = ta.getInt(R.styleable.EasyTitleBar_Easy_backLayoutState, 1);
+           /* if (backLayoutState == 1) {
                 backImage.setVisibility(VISIBLE);
                 backLayout.setVisibility(VISIBLE);
-            }
+            } else {
+                backImage.setVisibility(GONE);
+                backLayout.setVisibility(GONE);
+            }*/
 //3
             titleStyle = ta.getInt(R.styleable.EasyTitleBar_Easy_titleStyle, titleStyle);
             if (titleStyle == 0) {
@@ -402,13 +425,29 @@ public class EasyTitleBar extends RelativeLayout {
         this.onDoubleClickListener = onDoubleClickListener;
     }
 
-    public void setEasyFitsWindows(boolean fitSystem) {
-        if (fitSystem)
-            titleLayout.setPadding(0, EasyUtil.getStateBarHeight(getContext()), 0, 0);
-        else
-            titleLayout.setPadding(0, 0, 0, 0);
+    public void setEasyFitsWindows(boolean fitSystemWindow) {
+        this.fitSystemWindow = fitSystemWindow;
+        fit_cl.setFitsSystemWindows(fitSystemWindow);
     }
 
+    public void setHasStatusPadding(boolean hasStatusPadding) {
+        this.hasStatusPadding = hasStatusPadding;
+        if (hasStatusPadding) {
+            LinearLayout.LayoutParams statusParams = (LinearLayout.LayoutParams) status_view.getLayoutParams();
+            statusParams.height = EasyUtil.getStateBarHeight(getContext());
+            status_view.setLayoutParams(statusParams);
+        } else {
+            LinearLayout.LayoutParams statusParams = (LinearLayout.LayoutParams) status_view.getLayoutParams();
+            statusParams.height = 0;
+            status_view.setLayoutParams(statusParams);
+        }
+    }
+
+
+    public void setFitColor(int fitColor) {
+        this.fitColor = fitColor;
+        status_view.setBackgroundColor(fitColor);
+    }
 
     public void setBackgroundColor(int color) {
         titleLayout.setBackgroundColor(color);
@@ -517,11 +556,11 @@ public class EasyTitleBar extends RelativeLayout {
         backLayout.setLayoutParams(backLayoutParams);
 
         if (backLayoutState == 1) {
-            backImage.setVisibility(GONE);
-            backLayout.setVisibility(GONE);
-        } else {
             backImage.setVisibility(VISIBLE);
             backLayout.setVisibility(VISIBLE);
+        } else {
+            backImage.setVisibility(GONE);
+            backLayout.setVisibility(GONE);
         }
     }
 

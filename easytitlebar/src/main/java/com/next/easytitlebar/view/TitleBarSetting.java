@@ -47,6 +47,7 @@ public class TitleBarSetting {
     private int lineHeight = 1;
     private int lineColor = Color.parseColor("#f7f7f7");
     private boolean fitSystemWindow = false;
+    private boolean hasStatusPadding = false;
 
     private TitleBarSetting() {
     }
@@ -139,6 +140,11 @@ public class TitleBarSetting {
         return this;
     }
 
+    public TitleBarSetting hasStatusPadding(boolean hasStatusPadding) {
+        this.hasStatusPadding = hasStatusPadding;
+        return this;
+    }
+
     public int getTitleStyle() {
         return titleStyle;
     }
@@ -210,5 +216,9 @@ public class TitleBarSetting {
 
     public boolean isFitSystemWindow() {
         return fitSystemWindow;
+    }
+
+    public boolean isHasStatusPadding() {
+        return hasStatusPadding;
     }
 }

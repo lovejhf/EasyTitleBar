@@ -1,5 +1,6 @@
 package com.next.easytitlebardemo.ui.demo;
 
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
@@ -9,6 +10,7 @@ import com.next.easytitlebar.utils.EasyUtil;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.next.easytitlebardemo.R;
 import com.next.easytitlebardemo.base.BaseFragment;
+import com.next.easytitlebardemo.util.EasyStatusBarUtil;
 
 import butterknife.BindView;
 
@@ -22,6 +24,7 @@ public class MeFragment extends BaseFragment {
     NestedScrollView mSrollView;
     @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
+    private boolean isBlack = false;
 
     @Override
     protected int getLayoutId() {
@@ -30,15 +33,23 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void onViewCreated() {
+        if (((MainActivity) getActivity()).getMode() == 0) {
+            titleBar.setFitColor(ContextCompat.getColor(getContext(), R.color.status_bar_color));
+        } else {
+            titleBar.setFitColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+        }
 
-
-        titleBar.attachScrollView(mSrollView, R.color.white, EasyUtil.dip2px(getContext(), 250 - 60) - EasyUtil.getStateBarHeight(getActivity()), new EasyTitleBar.OnSrollAlphaListener() {
+        titleBar.attachScrollView(mSrollView, R.color.white, EasyUtil.dip2px(getContext(), 250) - titleBar.getHeight() - EasyUtil.getStateBarHeight(getActivity()), new EasyTitleBar.OnSrollAlphaListener() {
             @Override
             public void OnSrollAlphaEvent(float alpha) {
                 if (alpha > 0.8) {
                     titleBar.setTitle("我的");
                     titleBar.setTitleColor(ContextCompat.getColor(getContext(), R.color.common_text_3));
-                }else{
+                    EasyStatusBarUtil.StatusBarLightMode(getActivity(), R.color.white, R.color.status_bar_color); //设置白底黑字
+                    isBlack = true;
+                } else {
+                    isBlack = false;
+                    EasyStatusBarUtil.StatusBarDarkMode(getActivity(), ((MainActivity) getActivity()).getMode());
                     titleBar.setTitle("");
                     titleBar.setTitleColor(ContextCompat.getColor(getContext(), R.color.white));
                 }
@@ -54,6 +65,16 @@ public class MeFragment extends BaseFragment {
                 Toast.makeText(getContext(), "你总点我干嘛", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void lazyLoad() {
+        super.lazyLoad();
+        if (isBlack) {
+            EasyStatusBarUtil.StatusBarLightMode(getActivity(), R.color.white, R.color.status_bar_color); //设置白底黑字
+        } else {
+            EasyStatusBarUtil.StatusBarDarkMode(getActivity(), ((MainActivity) getActivity()).getMode());
+        }
     }
 
 }

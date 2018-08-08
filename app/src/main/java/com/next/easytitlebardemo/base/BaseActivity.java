@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 
 import com.next.easytitlebardemo.R;
-import com.next.easytitlebardemo.util.StatusBarUtil;
+import com.next.easytitlebardemo.util.EasyStatusBarUtil;
 
 import butterknife.ButterKnife;
 
@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private boolean isBlack = true;
+    private int mode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void setTextBlack() {
         if (isBlack) {
-            StatusBarUtil.StatusBarLightMode(this);
+            mode =  EasyStatusBarUtil.StatusBarLightMode(this, R.color.white, R.color.status_bar_color); //设置白底黑字
         }
     }
 
@@ -108,4 +109,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         isBlack = black;
     }
 
+
+    public int getMode() {
+        return mode;
+    }
 }

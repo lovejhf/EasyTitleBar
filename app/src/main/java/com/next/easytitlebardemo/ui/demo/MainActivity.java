@@ -10,13 +10,14 @@ import android.view.WindowManager;
 import com.next.easynavigition.view.EasyNavigitionBar;
 import com.next.easytitlebardemo.R;
 import com.next.easytitlebardemo.base.BaseActivity;
+import com.next.easytitlebardemo.util.EasyStatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class TestActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.mNavigitionBar)
     EasyNavigitionBar mNavigitionBar;
@@ -42,6 +43,9 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void onViewCreated() {
+
+
+        EasyStatusBarUtil.StatusBarLightMode(this, R.color.white, R.color.status_bar_color); //设置白底黑字
 
         initNavigition();
     }

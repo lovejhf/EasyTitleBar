@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
-        app:Easy_fitsSystemWindows="true"
+        app:Easy_hasStatusPadding="true"
         app:Easy_title="发现"
         app:Easy_rightOneText="历史"
         app:Easy_titleColor="#333333"

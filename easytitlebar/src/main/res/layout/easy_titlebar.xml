@@ -4,8 +4,14 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
     android:clickable="true"
-    android:background="#ffffff">
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fit_cl"
@@ -15,11 +21,11 @@
         <LinearLayout
             android:id="@+id/back_layout"
             android:layout_width="wrap_content"
-            android:minWidth="42dp"
             android:layout_height="match_parent"
             android:clickable="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:minWidth="42dp"
+            app:layout_constraintLeft_toLeftOf="parent">
 
             <ImageView
                 android:id="@+id/left_image"
@@ -34,8 +40,8 @@
             android:id="@+id/left_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:minWidth="50dp"
             android:gravity="center_vertical"
+            android:minWidth="50dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintLeft_toLeftOf="parent">
@@ -60,8 +66,8 @@
             android:id="@+id/right_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:minWidth="50dp"
             android:gravity="right|center_vertical"
+            android:minWidth="50dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintRight_toRightOf="parent">
@@ -73,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#f7f7f7"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

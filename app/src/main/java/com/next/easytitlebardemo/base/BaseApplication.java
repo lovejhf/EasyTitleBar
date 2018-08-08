@@ -94,11 +94,11 @@ public class BaseApplication extends Application {
     private void initEasyTitleBar() {
         EasyTitleBar.init()
                 .backIconRes(R.mipmap.back_icon)
-                .backgroud(ContextCompat.getColor(this, R.color.appColor))
+                .backgroud(ContextCompat.getColor(this, R.color.white))
                 .titleSize(18)
                 .showLine(true)
-                .titleColor(Color.parseColor("#ffffff"))
-                .titleBarHeight(60);
+                .titleColor(ContextCompat.getColor(this, R.color.common_text_3))
+                .titleBarHeight(52);
     }
 
 }
