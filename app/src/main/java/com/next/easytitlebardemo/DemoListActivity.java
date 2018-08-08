@@ -31,10 +31,6 @@ public class DemoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    //渐变
-    public void onShade(View view){
-        startActivity(new Intent(DemoListActivity.this,ShadeActivity.class));
-    }
 
     public void onNormal(View view){
         startActivity(new Intent(DemoListActivity.this,MainActivity.class));

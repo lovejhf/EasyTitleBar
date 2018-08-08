@@ -1,22 +1,14 @@
 package com.next.easytitlebardemo.ui.demo;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.next.easytitlebar.utils.EasyUtil;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.next.easytitlebardemo.R;
 import com.next.easytitlebardemo.base.BaseFragment;
-import com.next.easytitlebardemo.util.StatusBarUtil;
 
 import butterknife.BindView;
 
@@ -33,7 +25,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_shade;
+        return R.layout.fragment_me;
     }
 
     @Override
@@ -59,13 +51,7 @@ public class MeFragment extends BaseFragment {
         titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
             @Override
             public void onDoubleEvent(View view) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // mSrollView.fullScroll(ScrollView.FOCUS_UP);//滚动到顶部
-                    }
-                });
-
+                Toast.makeText(getContext(), "你总点我干嘛", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -4,20 +4,219 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/mSrollView"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/me_bg" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/me_bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:padding="15dp"
+                android:text="[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+
+2
+[U]
+also shadows [pl.]
+昏暗处；背光处；阴暗处
+darkness in a place or on sth, especially so that you cannot easily see who or what is there
+
+His face was deep in shadow , turned away from her.
+
+他扭过头去背着她，脸冲着暗处。
+
+I thought I saw a figure standing in the shadows.
+
+我好像看见阴暗处站着一个人。[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+
+2
+[U]
+also shadows [pl.]
+昏暗处；背光处；阴暗处
+darkness in a place or on sth, especially so that you cannot easily see who or what is there
+
+His face was deep in shadow , turned away from her.
+
+他扭过头去背着她，脸冲着暗处。
+
+I thought I saw a figure standing in the shadows.
+
+我好像看见阴暗处站着一个人。[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+
+2
+[U]
+also shadows [pl.]
+昏暗处；背光处；阴暗处
+darkness in a place or on sth, especially so that you cannot easily see who or what is there
+
+His face was deep in shadow , turned away from her.
+
+他扭过头去背着她，脸冲着暗处。
+
+I thought I saw a figure standing in the shadows.
+
+我好像看见阴暗处站着一个人。[C] 阴影；影子
+the dark shape that sb/sth's form makes on a surface, for example on the ground, when they are between the light and the surface
+
+The children were having fun, chasing each other's shadows.
+
+孩子们追逐着彼此的影子，玩得很开心。
+
+The ship's sail cast a shadow on the water.
+
+船帆在水面上投下一片影子。
+
+The shadows lengthened as the sun went down.
+
+随着太阳西下，影子越拉越长。
+
+(figurative) He didn't want to cast a shadow on (= spoil) their happiness.
+
+他不想给他们的幸福蒙上阴影。
+
+note at shade
+黑暗 darkness
+
+2
+[U]
+also shadows [pl.]
+昏暗处；背光处；阴暗处
+darkness in a place or on sth, especially so that you cannot easily see who or what is there
+
+His face was deep in shadow , turned away from her.
+
+他扭过头去背着她，脸冲着暗处。
+
+I thought I saw a figure standing in the shadows.
+
+我好像看见阴暗处站着一个人。"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <com.next.easytitlebar.view.EasyTitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
-        app:Easy_lineState="gone"
         app:Easy_fitsSystemWindows="true"
-        app:Easy_title="我的"
+        app:Easy_lineState="gone"
         app:Easy_titleBarBackground="@android:color/transparent"></com.next.easytitlebar.view.EasyTitleBar>
+
 
 </android.support.constraint.ConstraintLayout>

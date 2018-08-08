@@ -36,8 +36,8 @@
 
         <!--左边第一个返回箭头的有无-->
         <attr name="Easy_backLayoutState">
-            <flag name="gone" value="0" />
-            <flag name="visiable" value="1" />
+            <flag name="visiable" value="0" />
+            <flag name="gone" value="1" />
         </attr>
         <!--左边箭头icon-->
         <attr name="Easy_backRes" format="reference" />

@@ -46,6 +46,7 @@ public class TitleBarSetting {
 
     private int lineHeight = 1;
     private int lineColor = Color.parseColor("#f7f7f7");
+    private boolean fitSystemWindow = false;
 
     private TitleBarSetting() {
     }
@@ -132,6 +133,12 @@ public class TitleBarSetting {
         return this;
     }
 
+
+    public TitleBarSetting fitSystemWindow(boolean fitSystemWindow) {
+        this.fitSystemWindow = fitSystemWindow;
+        return this;
+    }
+
     public int getTitleStyle() {
         return titleStyle;
     }
@@ -198,5 +205,10 @@ public class TitleBarSetting {
 
     public int getLineColor() {
         return lineColor;
+    }
+
+
+    public boolean isFitSystemWindow() {
+        return fitSystemWindow;
     }
 }

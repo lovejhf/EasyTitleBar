@@ -11,6 +11,7 @@
         app:Easy_backLayoutState="gone"
         app:Easy_fitsSystemWindows="true"
         app:Easy_title="发现"
+        app:Easy_rightOneText="历史"
         app:Easy_titleColor="#333333"
         app:Easy_titleBarBackground="@color/white"></com.next.easytitlebar.view.EasyTitleBar>
 

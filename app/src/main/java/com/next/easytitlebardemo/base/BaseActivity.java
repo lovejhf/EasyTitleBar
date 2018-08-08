@@ -100,7 +100,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setTextBlack() {
         if (isBlack) {
             StatusBarUtil.StatusBarLightMode(this);
-            StatusBarUtil.setStatusBarColor(this, R.color.white);
         }
     }
 
