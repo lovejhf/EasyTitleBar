@@ -4,6 +4,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.next.easytitlebar.utils.EasyUtil;
@@ -46,14 +47,22 @@ public class MeFragment extends BaseFragment {
         titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
             @Override
             public void onDoubleEvent(View view) {
-                Toast.makeText(getContext(), "你总点我干嘛", Toast.LENGTH_SHORT).show();
+                mSrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSrollView.fling(0);
+                       // mSrollView.smoothScrollTo(0, 0);
+                        mSrollView.fullScroll(ScrollView.FOCUS_UP);
+                    }
+                });
+
             }
         });
     }
 
 
     private void initTitleBarView() {
-        titleBar.attachScrollView(mSrollView, R.color.white, EasyUtil.dip2px(getContext(), 250) - titleBar.getHeight() - EasyUtil.getStateBarHeight(getActivity()), new EasyTitleBar.OnSrollAlphaListener() {
+        titleBar.attachScrollView(mSrollView, R.color.white, EasyUtil.dip2px(getContext(), 250) + titleBar.getHeight(), new EasyTitleBar.OnSrollAlphaListener() {
             @Override
             public void OnSrollAlphaEvent(float alpha) {
                 if (alpha > 0.8) {

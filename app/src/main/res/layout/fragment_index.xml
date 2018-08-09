@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
         app:Easy_title="首页"
-        app:Easy_titleColor="#333333"
         app:Easy_titleBarBackground="@color/white"></com.next.easytitlebar.view.EasyTitleBar>
 
 </android.support.constraint.ConstraintLayout>

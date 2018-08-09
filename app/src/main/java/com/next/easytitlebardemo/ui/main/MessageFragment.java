@@ -1,5 +1,6 @@
 package com.next.easytitlebardemo.ui.main;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;

@@ -214,8 +214,8 @@ I thought I saw a figure standing in the shadows.
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
-        app:Easy_lineState="visiable"
         app:Easy_title=""
+        app:Easy_lineState="gone"
         app:Easy_titleBarBackground="@android:color/transparent"></com.next.easytitlebar.view.EasyTitleBar>
 
 

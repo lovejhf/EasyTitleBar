@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             app:contentScrim="@color/appColor"
             app:expandedTitleMarginStart="10dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:Easy_title="PHP是世界上最好的语言"
-                app:titleTextColor="@color/white"
+                app:Easy_titleColor="@color/white"
                 app:Easy_lineState="gone"
                 app:Easy_titleStyle="left"
                 app:Easy_fitsSystemWindows="true"

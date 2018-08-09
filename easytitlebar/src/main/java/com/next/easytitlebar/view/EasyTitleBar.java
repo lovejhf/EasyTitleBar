@@ -276,13 +276,6 @@ public class EasyTitleBar extends RelativeLayout {
             titleLine.setBackgroundColor(lineColor);
             titleLine.setLayoutParams(lineParams);
 
-            //分割线
-            lineState = ta.getInt(R.styleable.EasyTitleBar_Easy_lineState, lineState);
-            if (lineState == 1) {
-                titleLine.setVisibility(VISIBLE);
-            } else {
-                titleLine.setVisibility(GONE);
-            }
 
             //菜单图标大小
             menuImgSize = ta.getDimension(R.styleable.EasyTitleBar_Easy_menuImgSize, menuImgSize);
@@ -401,13 +394,24 @@ public class EasyTitleBar extends RelativeLayout {
 
 
             backLayoutState = ta.getInt(R.styleable.EasyTitleBar_Easy_backLayoutState, 1);
-           /* if (backLayoutState == 1) {
+
+            //分割线
+            lineState = ta.getInt(R.styleable.EasyTitleBar_Easy_lineState, lineState);
+
+            if (backLayoutState == 1) {
                 backImage.setVisibility(VISIBLE);
                 backLayout.setVisibility(VISIBLE);
             } else {
                 backImage.setVisibility(GONE);
                 backLayout.setVisibility(GONE);
-            }*/
+            }
+
+            if (lineState == 1) {
+                titleLine.setVisibility(VISIBLE);
+            } else {
+                titleLine.setVisibility(GONE);
+            }
+
 //3
             titleStyle = ta.getInt(R.styleable.EasyTitleBar_Easy_titleStyle, titleStyle);
             if (titleStyle == 0) {
@@ -534,6 +538,17 @@ public class EasyTitleBar extends RelativeLayout {
     public void setTitleStyle(int style) {
         titleStyle = style;
 
+        if (backLayout.getVisibility() == VISIBLE && backImage.getVisibility() == VISIBLE) {
+            backLayoutState = 1;
+        } else {
+            backLayoutState = 0;
+        }
+        if (titleLine.getVisibility() == VISIBLE) {
+            lineState = 1;
+        } else {
+            lineState = 0;
+        }
+
         if (style == TITLE_STYLE_CENTER) {
             centerConstraintSet.connect(title_tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
             centerConstraintSet.connect(title_tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
@@ -559,6 +574,12 @@ public class EasyTitleBar extends RelativeLayout {
         } else {
             backImage.setVisibility(GONE);
             backLayout.setVisibility(GONE);
+        }
+
+        if (lineState == 1) {
+            titleLine.setVisibility(VISIBLE);
+        } else {
+            titleLine.setVisibility(GONE);
         }
     }
 
