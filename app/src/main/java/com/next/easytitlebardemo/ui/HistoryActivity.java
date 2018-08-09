@@ -5,6 +5,9 @@ import com.next.easytitlebardemo.base.BaseActivity;
 
 import butterknife.BindView;
 
+/**
+ * 历史浏览
+ */
 public class HistoryActivity extends BaseActivity {
 
 

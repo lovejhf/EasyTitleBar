@@ -1,6 +1,6 @@
-package com.next.easytitlebardemo.ui.demo;
+package com.next.easytitlebardemo.ui.main;
 
-import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
@@ -16,6 +16,7 @@ import butterknife.BindView;
 
 /**
  * Created by Administrator on 2018/7/30.
+ * 我的
  */
 
 public class MeFragment extends BaseFragment {
@@ -33,12 +34,25 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void onViewCreated() {
-        if (((MainActivity) getActivity()).getMode() == 0) {
-            titleBar.setFitColor(ContextCompat.getColor(getContext(), R.color.status_bar_color));
-        } else {
-            titleBar.setFitColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-        }
 
+        initTitleFit();
+
+        initTitleBarView();
+
+    }
+
+    @Override
+    protected void initEventAndData() {
+        titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
+            @Override
+            public void onDoubleEvent(View view) {
+                Toast.makeText(getContext(), "你总点我干嘛", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void initTitleBarView() {
         titleBar.attachScrollView(mSrollView, R.color.white, EasyUtil.dip2px(getContext(), 250) - titleBar.getHeight() - EasyUtil.getStateBarHeight(getActivity()), new EasyTitleBar.OnSrollAlphaListener() {
             @Override
             public void OnSrollAlphaEvent(float alpha) {
@@ -57,14 +71,17 @@ public class MeFragment extends BaseFragment {
         });
     }
 
-    @Override
-    protected void initEventAndData() {
-        titleBar.setOnDoubleClickListener(new EasyTitleBar.OnDoubleClickListener() {
-            @Override
-            public void onDoubleEvent(View view) {
-                Toast.makeText(getContext(), "你总点我干嘛", Toast.LENGTH_SHORT).show();
+    private void initTitleFit() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            titleBar.setHasStatusPadding(true);
+            if (((MainActivity) getActivity()).getMode() == 0) {
+                titleBar.setFitColor(ContextCompat.getColor(getContext(), R.color.status_bar_color));
+            } else {
+                titleBar.setFitColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
             }
-        });
+        }
+
     }
 
     @Override

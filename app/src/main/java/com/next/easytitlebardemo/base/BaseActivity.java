@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         if (getScreenMode() == 1) {
+            //魅族MX3(4.2.1)出错
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

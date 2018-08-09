@@ -549,8 +549,6 @@ public class EasyTitleBar extends RelativeLayout {
             leftConstraintSet.applyTo(fit_cl);
         }
 
-        TransitionManager.beginDelayedTransition(fit_cl);
-
         ConstraintLayout.LayoutParams backLayoutParams = (ConstraintLayout.LayoutParams) backLayout.getLayoutParams();
         backLayoutParams.width = (int) (backImageSize + parentPadding * 2);
         backLayout.setLayoutParams(backLayoutParams);

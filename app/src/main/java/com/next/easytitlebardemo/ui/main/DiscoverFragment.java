@@ -1,9 +1,10 @@
-package com.next.easytitlebardemo.ui.demo;
+package com.next.easytitlebardemo.ui.main;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Toast;
 
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.next.easytitlebardemo.R;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 
 /**
  * Created by Administrator on 2018/7/30.
+ * 发现
  */
 
 public class DiscoverFragment extends BaseFragment {
@@ -31,13 +33,12 @@ public class DiscoverFragment extends BaseFragment {
     @Override
     protected void onViewCreated() {
 
-        if(((MainActivity)getActivity()).getMode()==0){
-            titleBar.setFitColor(ContextCompat.getColor(getContext(), R.color.status_bar_color));
-        }else{
-            titleBar.setFitColor(ContextCompat.getColor(getContext(),R.color.white));
-        }
+        initTitleFit();
 
+    }
 
+    @Override
+    protected void initEventAndData() {
         titleBar.getRightLayout(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,9 +47,15 @@ public class DiscoverFragment extends BaseFragment {
         });
     }
 
-    @Override
-    protected void initEventAndData() {
-
+    private void initTitleFit() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            titleBar.setHasStatusPadding(true);
+            if(((MainActivity)getActivity()).getMode()==0){
+                titleBar.setFitColor(ContextCompat.getColor(getContext(), R.color.status_bar_color));
+            }else{
+                titleBar.setFitColor(ContextCompat.getColor(getContext(),R.color.white));
+            }
+        }
     }
 
     @Override

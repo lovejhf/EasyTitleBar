@@ -1,12 +1,6 @@
-package com.next.easytitlebardemo.ui.demo;
+package com.next.easytitlebardemo.ui.main;
 
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.WindowManager;
-
+import com.next.easynavigition.constant.Anim;
 import com.next.easynavigition.view.EasyNavigitionBar;
 import com.next.easytitlebardemo.R;
 import com.next.easytitlebardemo.base.BaseActivity;
@@ -17,6 +11,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 入口
+ */
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.mNavigitionBar)
@@ -38,7 +35,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_navigition;
+        return R.layout.activity_main;
     }
 
     @Override
@@ -48,6 +45,12 @@ public class MainActivity extends BaseActivity {
         EasyStatusBarUtil.StatusBarLightMode(this, R.color.white, R.color.status_bar_color); //设置白底黑字
 
         initNavigition();
+    }
+
+
+    @Override
+    protected void initEventAndData() {
+
     }
 
     private void initNavigition() {
@@ -61,11 +64,8 @@ public class MainActivity extends BaseActivity {
                 .selectIconItems(selectIcon)
                 .fragmentList(fragments)
                 .fragmentManager(getSupportFragmentManager())
+                .anim(Anim.ZoomIn)
                 .build();
     }
 
-    @Override
-    protected void initEventAndData() {
-
-    }
 }

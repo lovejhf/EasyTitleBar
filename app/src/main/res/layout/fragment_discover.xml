@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Easy_backLayoutState="gone"
-        app:Easy_hasStatusPadding="true"
         app:Easy_title="发现"
-        app:Easy_rightOneText="历史"
+        app:Easy_rightOneImage="@mipmap/icon_scan"
         app:Easy_titleColor="#333333"
         app:Easy_titleBarBackground="@color/white"></com.next.easytitlebar.view.EasyTitleBar>
 
